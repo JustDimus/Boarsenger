@@ -28,6 +28,7 @@ namespace BoarAPI
         {
 
 			      services.AddNothing();
+            services.AddNothing(2000);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
