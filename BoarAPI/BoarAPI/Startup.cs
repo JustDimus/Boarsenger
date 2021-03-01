@@ -27,7 +27,9 @@ namespace BoarAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-			services.AddNothing(155);
+			services.AddNothing();
+            services.AddNothing(2000);
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
