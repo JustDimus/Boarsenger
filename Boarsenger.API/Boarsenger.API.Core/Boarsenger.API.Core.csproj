@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Implementations\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
