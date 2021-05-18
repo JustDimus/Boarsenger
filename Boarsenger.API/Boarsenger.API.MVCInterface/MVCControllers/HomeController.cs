@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Boarsenger.API.MVCInterface.Controllers
+namespace Boarsenger.API.MVCInterface.MVCControllers
 {
     public class HomeController : Controller
     {
