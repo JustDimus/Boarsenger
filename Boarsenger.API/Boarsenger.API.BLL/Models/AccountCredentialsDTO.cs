@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Boarsenger.API.BLL.Model
+namespace Boarsenger.API.BLL.Models
 {
-    public class AccountLoginDataDTO
+    public class AccountCredentialsDTO
     {
         public string Email { get; set; }
 

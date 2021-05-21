@@ -8,12 +8,12 @@ namespace Boarsenger.API.BLL.Service
 {
     public interface IAccountService
     {
-        Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentials loginModel);
+        Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentialsDTO loginModel);
 
-        Task<IServiceResult<Guid>> RegisterAsync(AccountCredentials registrationModel);
+        Task<IServiceResult<Guid>> RegisterAsync(AccountCredentialsDTO registrationModel);
 
-        Task<IServiceResult<string>> ReCreateAccountToken(AccountCredentials loginModel);
+        Task<IServiceResult<AccountTokenDTO>> GenerateAccountTokenAsync(AccountCredentialsDTO loginModel);
 
-        Task<IServiceResult<string>> 
+        Task<IServiceResult<string>> ClearAccountTokenAsync(AccountTokenDTO accountToken);
     }
 }

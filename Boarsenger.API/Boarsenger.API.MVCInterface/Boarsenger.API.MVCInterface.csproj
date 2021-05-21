@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Boarsenger.API.BLL\Boarsenger.API.BLL.csproj" />
     <ProjectReference Include="..\Boarsenger.API.Core\Boarsenger.API.Core.csproj" />
     <ProjectReference Include="..\Boarsenger.API.DAL\Boarsenger.API.DAL.csproj" />
+    <ProjectReference Include="..\Boarsenger.Libraries.Telemetry\Boarsenger.Libraries.Telemetry.csproj" />
   </ItemGroup>
 
 </Project>
