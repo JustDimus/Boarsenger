@@ -6,13 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.DAL", "Boarsenger.API.DAL\Boarsenger.API.DAL.csproj", "{F78963B2-26A8-4E50-9074-13DE60B5075E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61CC1951-78DA-47C8-846C-AEFC44BA45AC} = {61CC1951-78DA-47C8-846C-AEFC44BA45AC}
+		{337984D6-DD52-4589-822F-BE22B400A573} = {337984D6-DD52-4589-822F-BE22B400A573}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.Core", "Boarsenger.API.Core\Boarsenger.API.Core.csproj", "{61CC1951-78DA-47C8-846C-AEFC44BA45AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.MVCInterface", "Boarsenger.API.MVCInterface\Boarsenger.API.MVCInterface.csproj", "{606E0ECA-FF41-4090-85F5-0D0387194125}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boarsenger.API.BLL", "Boarsenger.API.BLL\Boarsenger.API.BLL.csproj", "{7A1023A9-D661-4030-8097-125C15D5AD1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boarsenger.API.EF", "Boarsenger.API.EF\Boarsenger.API.EF.csproj", "{337984D6-DD52-4589-822F-BE22B400A573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +37,10 @@ Global
 		{7A1023A9-D661-4030-8097-125C15D5AD1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A1023A9-D661-4030-8097-125C15D5AD1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A1023A9-D661-4030-8097-125C15D5AD1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337984D6-DD52-4589-822F-BE22B400A573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337984D6-DD52-4589-822F-BE22B400A573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337984D6-DD52-4589-822F-BE22B400A573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337984D6-DD52-4589-822F-BE22B400A573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

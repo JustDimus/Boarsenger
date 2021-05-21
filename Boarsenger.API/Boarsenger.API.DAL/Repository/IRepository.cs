@@ -9,22 +9,7 @@ namespace Boarsenger.API.DAL.Repository
 {
     public interface IRepository<TEntity> where TEntity : class, IDbEntity
     {
-        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> condition);
-
-        Task<TOut> GetAsync<TOut>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, TOut>> selector);
-
-        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> condition, int take, int skip);
-
-        Task<TOut> GetAsync<TOut>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, TOut>> selector, int take, int skip);
-
-        Task<TEntity> GetAsync(
-            Expression<Func<TEntity, bool>> condition,
-            IEnumerable<Expression<Func<TEntity, dynamic>>> includes);
-
-        Task<TEntity> GetAsync(
-            Expression<Func<TEntity, bool>> condition,
-            IEnumerable<Expression<Func<TEntity, dynamic>>> includes,
-            int take, int skip);
+        Task CreateAsync(TEntity entity);
 
         Task UpdateAsync(TEntity entity);
 
@@ -32,9 +17,23 @@ namespace Boarsenger.API.DAL.Repository
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> condition);
 
-        Task<int> AnyAsync(Expression<Func<TEntity, bool>> condition);
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> condition);
+
+        Task<TResult> GetAsync<TResult>(
+            Expression<Func<TEntity, bool>> condition,
+            Expression<Func<TEntity, TResult>> selector);
+
+        Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> condition,
+            int pageNumber, int pageSize);
+
+        Task<IEnumerable<TResult>> GetPageAsync<TResult>(Expression<Func<TEntity, bool>> condition,
+            Expression<Func<TEntity, TResult>> selector, int pageNumber, int pageSize);
 
         Task DeleteAsync(Expression<Func<TEntity, bool>> condition);
+
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> condition);
+
+        Task<bool> ContainsAsync(TEntity entity);
 
         Task SaveAsync();
     }
