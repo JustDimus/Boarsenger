@@ -12,8 +12,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.Core", "Boarsenger.API.Core\Boarsenger.API.Core.csproj", "{61CC1951-78DA-47C8-846C-AEFC44BA45AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.MVCInterface", "Boarsenger.API.MVCInterface\Boarsenger.API.MVCInterface.csproj", "{606E0ECA-FF41-4090-85F5-0D0387194125}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boarsenger.API.BLL", "Boarsenger.API.BLL\Boarsenger.API.BLL.csproj", "{7A1023A9-D661-4030-8097-125C15D5AD1C}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boarsenger.API.EF", "Boarsenger.API.EF\Boarsenger.API.EF.csproj", "{337984D6-DD52-4589-822F-BE22B400A573}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.BLL", "Boarsenger.API.BLL\Boarsenger.API.BLL.csproj", "{7A1023A9-D661-4030-8097-125C15D5AD1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boarsenger.API.EF", "Boarsenger.API.EF\Boarsenger.API.EF.csproj", "{337984D6-DD52-4589-822F-BE22B400A573}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{314F30CB-26ED-4EA8-9F39-467D39FAEF7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F78963B2-26A8-4E50-9074-13DE60B5075E} = {314F30CB-26ED-4EA8-9F39-467D39FAEF7E}
+		{61CC1951-78DA-47C8-846C-AEFC44BA45AC} = {314F30CB-26ED-4EA8-9F39-467D39FAEF7E}
+		{606E0ECA-FF41-4090-85F5-0D0387194125} = {314F30CB-26ED-4EA8-9F39-467D39FAEF7E}
+		{7A1023A9-D661-4030-8097-125C15D5AD1C} = {314F30CB-26ED-4EA8-9F39-467D39FAEF7E}
+		{337984D6-DD52-4589-822F-BE22B400A573} = {314F30CB-26ED-4EA8-9F39-467D39FAEF7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {12889ECF-48DA-41A4-BF3D-C665927FFD24}

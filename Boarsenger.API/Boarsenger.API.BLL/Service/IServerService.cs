@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Boarsenger.API.BLL.Service
 {
-    public interface ICourseService
+    public interface IServerService
     {
+        
     }
 }

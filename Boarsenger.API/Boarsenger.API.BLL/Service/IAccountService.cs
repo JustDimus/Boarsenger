@@ -11,5 +11,9 @@ namespace Boarsenger.API.BLL.Service
         Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentials loginModel);
 
         Task<IServiceResult<Guid>> RegisterAsync(AccountCredentials registrationModel);
+
+        Task<IServiceResult<string>> ReCreateAccountToken(AccountCredentials loginModel);
+
+        Task<IServiceResult<string>> 
     }
 }
