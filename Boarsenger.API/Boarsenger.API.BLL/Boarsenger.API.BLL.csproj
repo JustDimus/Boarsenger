@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Service\Implementations\" />
+    <ProjectReference Include="..\Boarsenger.API.DAL\Boarsenger.API.DAL.csproj" />
   </ItemGroup>
 </Project>
