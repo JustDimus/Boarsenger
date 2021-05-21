@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Implementations\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup>
