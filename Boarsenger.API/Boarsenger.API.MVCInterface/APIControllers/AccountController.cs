@@ -68,15 +68,15 @@ namespace Boarsenger.API.MVCInterface.APIControllers
                 Password = accountCredentials.Password
             };
 
-            var serviceResult = await this.accountService.RegisterAsync(accountDTO);
+            var serviceResult = await this.accountService.TryLogInAsync(accountDTO);
 
-            if (!serviceResult.IsSuccesful)
+            if (serviceResult.IsSuccesful)
             {
-                return Ok(JsonParser.ParseToString(new AccountToken()
+                return new JsonResult(new AccountToken()
                 {
                     Email = serviceResult.Result.Email,
                     Token = serviceResult.Result.Token
-                }));
+                });
             }
             else
             {
