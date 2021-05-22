@@ -17,6 +17,8 @@ namespace Boarsenger.API.Core.Models
 
         public string SecondName { get; set; }
 
+        public IEnumerable<AccountToken> Tokens { get; set; }
+
         //public IEnumerable<Payment> Payments { get; set; }
 
         public IEnumerable<Server> OwnedServers { get; set; }

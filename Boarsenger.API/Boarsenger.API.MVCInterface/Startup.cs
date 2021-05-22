@@ -39,6 +39,7 @@ namespace Boarsenger.API.MVCInterface
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<DbContext>(c => c.GetRequiredService<APIDbContext>());
 
+            services.AddTransient<IEncryptionService, EncryptionService>();
             services.AddTransient<IAccountService, AccountService>();
 
             services.AddControllersWithViews(setup =>

@@ -12,41 +12,119 @@ namespace Boarsenger.API.BLL.Service.Implementations
     {
         private IRepository<Account> accountRepository;
 
-        public AccountService(IRepository<Account> accountRepository)
+        private IEncryptionService encryptionService;
+
+        private IRepository<AccountToken> accountTokenRepository;
+
+        public AccountService(
+            IRepository<Account> accountRepository,
+            IRepository<AccountToken> accountTokenRepository,
+            IEncryptionService encryptionService)
         {
             this.accountRepository = accountRepository;
+            this.encryptionService = encryptionService;
+            this.accountTokenRepository = accountTokenRepository;
         }
 
-        public Task<IServiceResult<string>> ClearAccountTokenAsync(AccountTokenDTO accountToken)
+        public async Task<IServiceResult<AccountTokenDTO>> RegisterAsync(AccountCredentialsDTO registrationModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var isAccountExist = await this.accountRepository.AnyAsync(account => account.Email == registrationModel.Email);
+
+                if (isAccountExist)
+                {
+                    return ServiceResult<AccountTokenDTO>.FromResult(false, null, "Email already exists");
+                }
+
+                Account account = new Account()
+                {
+                    Email = registrationModel.Email,
+                    Password = encryptionService.Encrypt(registrationModel.Password)
+                };
+
+                await this.accountRepository.CreateAsync(account);
+
+                await this.accountRepository.SaveAsync();
+
+                return ServiceResult<AccountTokenDTO>.FromResult(
+                    true,
+                    await this.GenerateAccountToken(account));
+            }
+            catch(Exception ex)
+            {
+                return ServiceResult<AccountTokenDTO>.FromResult(false, null, ex.Message);
+            }
         }
 
-        public Task<IServiceResult<AccountTokenDTO>> GenerateAccountTokenAsync(AccountCredentialsDTO loginModel)
+        public async Task<IServiceResult<AccountTokenDTO>> TryLogInAsync(AccountCredentialsDTO loginModel)
         {
-            throw new NotImplementedException();
-        }
-        /*
-        public Task<IServiceResult<Guid>> LoginAsync(AccountLoginDataDTO accountData)
-        {
-            this.repository.GetAsync(x => x.Email == accountData.Email && x.Password == accountData.Password);
+            try
+            {
+                var account = await this.accountRepository
+                    .GetAsync(account => 
+                    account.Email == loginModel.Email
+                    && account.Password == this.encryptionService.Encrypt(loginModel.Password));
 
-            throw new NotImplementedException();
+                if (account == null)
+                {
+                    return ServiceResult<AccountTokenDTO>.FromResult(false, null, "Account with this credentials doesn't exist");
+                }
+
+                return ServiceResult<AccountTokenDTO>.FromResult(
+                    true,
+                    await this.GenerateAccountToken(account));
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<AccountTokenDTO>.FromResult(false, null, ex.Message);
+            }
         }
 
-        public Task<IServiceResult<Guid>> RegisterAsync(AccountLoginDataDTO accountData)
+        public async Task<IServiceResult> TryLogOutAsync(AccountTokenDTO accountToken)
         {
-            throw new NotImplementedException();
-        }
-        */
-        public Task<IServiceResult<Guid>> RegisterAsync(AccountCredentialsDTO registrationModel)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var isTokenExist = await this.accountTokenRepository.AnyAsync(at => at.Token == accountToken.Token);
+
+                if (!isTokenExist)
+                {
+                    return ServiceResult.FromResult(false, "Token doesn't exist");
+                }
+
+                await this.accountTokenRepository.DeleteAsync(at => at.Token == accountToken.Token);
+
+                await this.accountTokenRepository.SaveAsync();
+
+                return ServiceResult.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult.FromResult(false, ex.Message);
+            }
         }
 
-        public Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentialsDTO loginModel)
+
+        private async Task<AccountTokenDTO> GenerateAccountToken(Account account)
         {
-            throw new NotImplementedException();
+            DateTime currentTime = DateTime.Now;
+
+            var accountToken =  new AccountTokenDTO()
+            {
+                Email = account.Email,
+                Token = $"{this.encryptionService.Encrypt(account.Email)}{this.encryptionService.Encrypt(currentTime.ToString("d"))}"
+            };
+
+            await this.accountTokenRepository.CreateAsync(new AccountToken()
+            {
+                AccountId = account.Id,
+                TokenDate = currentTime,
+                Token = accountToken.Token
+            });
+
+            await this.accountTokenRepository.SaveAsync();
+
+            return accountToken;
         }
     }
 }
