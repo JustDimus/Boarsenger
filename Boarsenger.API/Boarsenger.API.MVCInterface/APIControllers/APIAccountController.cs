@@ -12,13 +12,14 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.MVCInterface.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class APIAccountController : ControllerBase
     {
         private IAccountService accountService;
 
-        public APIAccountController(IAccountService accountService)
+        public APIAccountController(
+            IAccountService accountService)
         {
             this.accountService = accountService;
         }
@@ -47,6 +48,18 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             {
                 return BadRequest(serviceResult.Message);
             }
+        }
+
+        [HttpGet]
+        public IActionResult GenerateResult()
+        {
+            return new JsonResult(new { A = 15, B = "Hello world" });
+        }
+
+        [HttpGet]
+        public IActionResult GenerateResult2()
+        {
+            return new JsonResult(new { A = 15, B = "Hello world" });
         }
 
         [HttpPost]

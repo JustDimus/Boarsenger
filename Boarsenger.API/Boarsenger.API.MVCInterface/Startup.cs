@@ -1,4 +1,10 @@
+using Boarsenger.API.BLL.Service;
+using Boarsenger.API.BLL.Service.Implementations;
+using Boarsenger.API.Core.Models;
+using Boarsenger.API.DAL.Repository;
+using Boarsenger.API.DAL.Repository.Implementations;
 using Boarsenger.API.EF;
+using Boarsenger.API.MVCInterface.FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,8 +36,17 @@ namespace Boarsenger.API.MVCInterface
                 .AddDbContext<APIDbContext>(c => 
                 c.UseSqlServer(Configuration.GetConnectionString("API.DbConnection")));
 
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<DbContext>(c => c.GetRequiredService<APIDbContext>());
 
-            services.AddControllersWithViews().AddFluentValidation();
+            services.AddTransient<IAccountService, AccountService>();
+
+            services.AddControllersWithViews(setup =>
+            {
+            }).AddFluentValidation(setup =>
+            {
+                setup.RegisterValidatorsFromAssemblyContaining<AccountCreditionalsValidationRules>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

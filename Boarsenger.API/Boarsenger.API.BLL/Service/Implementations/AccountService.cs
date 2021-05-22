@@ -10,11 +10,11 @@ namespace Boarsenger.API.BLL.Service.Implementations
 {
     public class AccountService : IAccountService
     {
-        private readonly IRepository<AuthorizationAccount> repository;
+        private IRepository<Account> accountRepository;
 
-        public AccountService(IRepository<AuthorizationAccount> repository)
+        public AccountService(IRepository<Account> accountRepository)
         {
-            this.repository = repository;
+            this.accountRepository = accountRepository;
         }
 
         public Task<IServiceResult<string>> ClearAccountTokenAsync(AccountTokenDTO accountToken)
