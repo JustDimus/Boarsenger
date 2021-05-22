@@ -7,7 +7,9 @@ namespace Boarsenger.API.Core.Models
 {
     public class ServerStatistic : IDbEntity
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
+
+        public Guid ServerId { get; set; }
 
         public Server Server { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using Boarsenger.API.BLL.Model;
+﻿using Boarsenger.API.BLL.Models;
 using Boarsenger.API.Core.Models;
 using Boarsenger.API.DAL.Repository;
 using System;
@@ -17,6 +17,16 @@ namespace Boarsenger.API.BLL.Service.Implementations
             this.repository = repository;
         }
 
+        public Task<IServiceResult<string>> ClearAccountTokenAsync(AccountTokenDTO accountToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<AccountTokenDTO>> GenerateAccountTokenAsync(AccountCredentialsDTO loginModel)
+        {
+            throw new NotImplementedException();
+        }
+        /*
         public Task<IServiceResult<Guid>> LoginAsync(AccountLoginDataDTO accountData)
         {
             this.repository.GetAsync(x => x.Email == accountData.Email && x.Password == accountData.Password);
@@ -25,6 +35,16 @@ namespace Boarsenger.API.BLL.Service.Implementations
         }
 
         public Task<IServiceResult<Guid>> RegisterAsync(AccountLoginDataDTO accountData)
+        {
+            throw new NotImplementedException();
+        }
+        */
+        public Task<IServiceResult<Guid>> RegisterAsync(AccountCredentialsDTO registrationModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentialsDTO loginModel)
         {
             throw new NotImplementedException();
         }

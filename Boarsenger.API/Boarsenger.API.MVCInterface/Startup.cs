@@ -1,7 +1,9 @@
+using Boarsenger.API.EF;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,11 @@ namespace Boarsenger.API.MVCInterface
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddDbContext<APIDbContext>(c => 
+                c.UseSqlServer(Configuration.GetConnectionString("API.DbConnection")));
+
+
             services.AddControllersWithViews().AddFluentValidation();
         }
 

@@ -1,5 +1,4 @@
-﻿using Boarsenger.API.BLL.Model;
-using Boarsenger.API.BLL.Models;
+﻿using Boarsenger.API.BLL.Models;
 using Boarsenger.API.BLL.Service;
 using Boarsenger.API.MVCInterface.ViewModels;
 using Boarsenger.Libraries.Telemetry.Models;
@@ -32,7 +31,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
                 return BadRequest(registerVM);
             }
 
-            AccountLoginDataDTO accountDTO = new AccountLoginDataDTO()
+            AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
             {
                 Email = registerVM.Email,
                 Password = registerVM.Password

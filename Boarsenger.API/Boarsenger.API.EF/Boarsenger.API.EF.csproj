@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Boarsenger.API.Core\Boarsenger.API.Core.csproj" />
+  </ItemGroup>
+
 </Project>

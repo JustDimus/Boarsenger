@@ -7,7 +7,7 @@ namespace Boarsenger.API.Core.Models
 {
     public class Account : IDbEntity
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
 
         public string Email { get; set; }
 
@@ -15,11 +15,11 @@ namespace Boarsenger.API.Core.Models
 
         public string SecondName { get; set; }
 
-        public IEnumerable<Payment> Payments { get; set; }
+        //public IEnumerable<Payment> Payments { get; set; }
 
         public IEnumerable<Server> OwnedServers { get; set; }
 
-        public IEnumerable<Server> ListOfServers { get; set; }
+        //public IEnumerable<Server> ListOfServers { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 
