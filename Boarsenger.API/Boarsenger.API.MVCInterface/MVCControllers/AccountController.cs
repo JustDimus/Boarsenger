@@ -25,5 +25,17 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Registration([FromForm]RegisterViewModel registrationModel)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
     }
 }
