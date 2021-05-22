@@ -3,5 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  
+
+  <ItemGroup>
+    <ProjectReference Include="..\Boarsenger.API.DAL\Boarsenger.API.DAL.csproj" />
+  </ItemGroup>
 </Project>

@@ -12,4 +12,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Boarsenger.API.BLL\Boarsenger.API.BLL.csproj" />
+    <ProjectReference Include="..\Boarsenger.API.Core\Boarsenger.API.Core.csproj" />
+    <ProjectReference Include="..\Boarsenger.API.DAL\Boarsenger.API.DAL.csproj" />
+    <ProjectReference Include="..\Boarsenger.Libraries.Telemetry\Boarsenger.Libraries.Telemetry.csproj" />
+  </ItemGroup>
+
 </Project>
