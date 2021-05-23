@@ -25,7 +25,7 @@ namespace Boarsenger.API.Core.Models
 
         public IEnumerable<ServerStatistic> ServerInfoCollection { get; set; }
 
-        public ServerToken ServerToken { get; set; }
+        public IEnumerable<ServerToken> ServerTokens { get; set; }
 
         //public IEnumerable<Account> JoinedUsers { get; set; }
     }

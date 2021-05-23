@@ -97,6 +97,11 @@ namespace Boarsenger.API.BLL.Service.Implementations
         {
             try
             {
+                if (account == null)
+                {
+                    return ServiceResult<Guid>.FromResult(false, default, "Account is null");
+                }
+
                 var accountToken = await this.accountTokenRepository.GetAsync(c => c.Token == account.Token);
 
                 if (accountToken == null)

@@ -42,6 +42,8 @@ namespace Boarsenger.API.MVCInterface
             services.AddTransient<IEncryptionService, EncryptionService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAccountTokenService, AccountTokenService>();
+            services.AddTransient<IServerService, ServerService>();
+            services.AddTransient<IServerTokenService, ServerTokenService>();
 
             services.AddControllersWithViews(setup =>
             {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Boarsenger.API.EF
+namespace Boarsenger.API.EF.Configurations
 {
     public class ServerTokenEntityTypeConfiguration : IEntityTypeConfiguration<ServerToken>
     {
@@ -13,7 +13,8 @@ namespace Boarsenger.API.EF
         {
             builder.HasKey(c => c.ServerId);
             builder.HasOne(c => c.Server)
-                .WithOne(s => s.ServerToken);
+                .WithMany(s => s.ServerTokens)
+                .HasForeignKey(c => c.ServerId);
         }
     }
 }

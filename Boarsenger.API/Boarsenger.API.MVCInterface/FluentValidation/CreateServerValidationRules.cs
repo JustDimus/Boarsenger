@@ -13,16 +13,8 @@ namespace Boarsenger.API.MVCInterface.FluentValidation
         {
             this.RuleFor(c => c.ServerOwnerData)
                 .NotNull();
-            this.RuleFor(c => c.ServerOwnerData.AccountToken.Email)
-                .NotEmpty();
-            this.RuleFor(c => c.ServerOwnerData.AccountToken.Token)
-                .NotEmpty();
             this.RuleFor(c => c.ServerData)
                 .NotNull();
-            this.RuleFor(c => c.ServerData.Title)
-                .NotEmpty();
-            this.RuleFor(c => c.ServerData.ServerIP)
-                .NotEmpty();
         }
     }
 }
