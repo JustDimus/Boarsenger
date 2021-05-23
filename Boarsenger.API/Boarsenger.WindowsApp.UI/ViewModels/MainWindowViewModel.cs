@@ -2,6 +2,7 @@
 using Boarsenger.WindowsApp.UI.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Boarsenger.WindowsApp.UI.ViewModels
@@ -16,9 +17,26 @@ namespace Boarsenger.WindowsApp.UI.ViewModels
             new Route(Page.Home, "Pages/HomePage.xaml")
         };
 
-        public MainWindowViewModel()
-        {
+        private INavigationService navigationService;
 
+        public MainWindowViewModel(
+            INavigationService navigationService)
+        {
+            this.navigationService = navigationService;
+
+            this.navigationService.CurrentPageKey.Subscribe((page) =>
+            {
+                if (this.resourceDictionary.Any(c => c.Page == page))
+                {
+                    string newPathToView = this.resourceDictionary.FirstOrDefault(c => c.Page == page)?.PathToPage;
+                    if (newPathToView != this.PathToView)
+                    {
+                        PathToView = newPathToView;
+
+                        OnPropertyChanged(nameof(PathToView));
+                    }
+                }
+            });
         }
 
         public string PathToView { get; private set; }

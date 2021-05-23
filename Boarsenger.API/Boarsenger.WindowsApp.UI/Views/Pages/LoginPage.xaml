@@ -11,6 +11,6 @@
         <Binding Source="{StaticResource Locator}" Path=""/>
     </Page.DataContext>
     <Grid>
-        
+        <Button Content="Dsadqer"></Button>
     </Grid>
 </local:BasePage>
