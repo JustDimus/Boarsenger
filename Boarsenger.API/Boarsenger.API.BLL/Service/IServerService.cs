@@ -8,7 +8,7 @@ namespace Boarsenger.API.BLL.Service
 {
     public interface IServerService
     {
-        Task<IServiceResult<ServerTokenDTO>> CreateServer(UpdateServerDataDTO createServerData);
+        Task<IServiceResult<UpdateServerDataDTO>> CreateServer(ChangeServerSettingsDTO createServerData);
 
         Task<IServiceResult> UpdateServerData(UpdateServerDataDTO updateServerData);
 
@@ -16,8 +16,8 @@ namespace Boarsenger.API.BLL.Service
 
         Task<IServiceResult> ChangeServerStatus(UpdateServerPublicationStatusDTO publicationData);
 
-        Task<IServiceResult<ServerTokenDTO>> ChangeServerToken(ServerOwnerDataDTO changeServerInfo);
+        Task<IServiceResult<ServerTokenDTO>> ChangeServerToken(ServerInfoUpdate changeServerInfo);
 
-        Task<IServiceResult> DeleteServer(ServerOwnerDataDTO deleteServerInfo);
+        Task<IServiceResult> DeleteServer(ServerInfoUpdate deleteServerInfo);
     }
 }

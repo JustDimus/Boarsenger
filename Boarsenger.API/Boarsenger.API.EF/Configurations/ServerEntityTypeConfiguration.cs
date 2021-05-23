@@ -16,6 +16,9 @@ namespace Boarsenger.API.EF.Configurations
                 .HasOne(s => s.Owner)
                 .WithMany(s => s.OwnedServers)
                 .HasForeignKey(s => s.OwnerId);
+            builder
+                .HasOne(s => s.ServerToken)
+                .WithOne(c => c.Server);
         }
     }
 }

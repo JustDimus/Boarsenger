@@ -6,7 +6,9 @@ namespace Boarsenger.API.BLL.Models
 {
     public class UpdateServerPublicationStatusDTO
     {
-        public ServerOwnerDataDTO ServerOwnerData { get; set; }
+        public AccountTokenDTO AccountToken { get; set; }
+
+        public ServerTokenDTO ServerToken { get; set; }
 
         public bool PublicationStatus { get; set; }
     }

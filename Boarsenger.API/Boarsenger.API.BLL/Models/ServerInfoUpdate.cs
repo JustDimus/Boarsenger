@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Boarsenger.API.BLL.Models
 {
-    public class ServerOwnerDataDTO
+    public class ServerInfoUpdate
     {
         public AccountTokenDTO AccountToken { get; set; }
 

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.MVCInterface.FluentValidation
 {
-    public class CreateServerValidationRules : AbstractValidator<CreateServer>
+    public class CreateServerValidationRules : AbstractValidator<CreateServerData>
     {
         public CreateServerValidationRules()
         {
-            this.RuleFor(c => c.AccountToken)
+            this.RuleFor(c => c.ServerOwnerData)
                 .NotNull();
-            this.RuleFor(c => c.AccountToken.Email)
+            this.RuleFor(c => c.ServerOwnerData.AccountToken.Email)
                 .NotEmpty();
-            this.RuleFor(c => c.AccountToken.Token)
+            this.RuleFor(c => c.ServerOwnerData.AccountToken.Token)
                 .NotEmpty();
             this.RuleFor(c => c.ServerData)
                 .NotNull();

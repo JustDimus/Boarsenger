@@ -8,6 +8,6 @@ namespace Boarsenger.API.BLL.Models
     {
         public ServerDataDTO ServerData { get; set; }
 
-        public AccountTokenDTO AccountToken { get; set; }
+        public ServerTokenDTO ServerToken { get; set; }
     }
 }
