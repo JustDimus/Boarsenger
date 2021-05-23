@@ -16,7 +16,7 @@ namespace Boarsenger.WindowsApp.UI.Views.Pages
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class HomePage : BasePage
     {
         public HomePage()
         {

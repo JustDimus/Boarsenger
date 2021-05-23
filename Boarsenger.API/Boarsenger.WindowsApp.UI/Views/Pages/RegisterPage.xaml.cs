@@ -16,7 +16,7 @@ namespace Boarsenger.WindowsApp.UI.Views.Pages
     /// <summary>
     /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class RegisterPage : BasePage
     {
         public RegisterPage()
         {

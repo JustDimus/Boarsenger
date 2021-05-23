@@ -5,7 +5,16 @@ using System.Text;
 
 namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase, IPageViewModel
     {
+        public void OnPageLoaded()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnPageUnloaded()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

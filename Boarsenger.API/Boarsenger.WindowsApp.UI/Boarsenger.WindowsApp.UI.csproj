@@ -6,9 +6,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Pages\" />
-    <Folder Include="Views\Pages\" />
-  </ItemGroup>
-
 </Project>

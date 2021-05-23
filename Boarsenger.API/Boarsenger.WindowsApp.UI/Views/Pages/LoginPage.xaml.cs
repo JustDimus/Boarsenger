@@ -16,7 +16,7 @@ namespace Boarsenger.WindowsApp.UI.Views.Pages
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : System.Windows.Controls.Page
+    public partial class LoginPage : BasePage
     {
         public LoginPage()
         {

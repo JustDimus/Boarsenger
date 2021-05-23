@@ -16,7 +16,7 @@ namespace Boarsenger.WindowsApp.UI.Views.Pages
     /// <summary>
     /// Interaction logic for ServerPage.xaml
     /// </summary>
-    public partial class ServerPage : Page
+    public partial class ServerPage : BasePage
     {
         public ServerPage()
         {
