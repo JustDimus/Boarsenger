@@ -7,7 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ServerPage">
-
+    <Page.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="ServerViewModel"/>
+    </Page.DataContext>
     <Grid>
         
     </Grid>

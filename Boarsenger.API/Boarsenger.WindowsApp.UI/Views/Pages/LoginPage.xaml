@@ -8,9 +8,30 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
     <Page.DataContext>
-        <Binding Source="{StaticResource Locator}" Path=""/>
+        <Binding Source="{StaticResource Locator}" Path="LoginViewModel"/>
     </Page.DataContext>
     <Grid>
-        <Button Content="Dsadqer"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource LoginCenterBorder}">
+            <StackPanel>
+                <TextBlock Text="Логин"/>
+                <TextBox Text="{Binding Path=Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Пароль"/>
+                <TextBox Text="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Command="{Binding Path=AuthorizeCommand}">Авторизоваться</Button>
+                <TextBlock Style="{DynamicResource ErrorMessageTextBlock}"
+                        Text="{Binding Path=ErrorMessage, Mode=OneWay}"/>
+                <Button Command="{Binding Path=SwitchToRegisterCommand}">Создать аккаунт</Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </local:BasePage>
