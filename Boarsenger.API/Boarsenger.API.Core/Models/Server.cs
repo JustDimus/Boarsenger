@@ -17,6 +17,8 @@ namespace Boarsenger.API.Core.Models
 
         public bool IsPublished { get; set; }
 
+        public bool IsAdultOnly { get; set; }
+
         public bool IsBanned { get; set; }
 
         public string IP { get; set; }

@@ -42,11 +42,11 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 
             if (serviceResult.IsSuccesful)
             {
-                return Ok(JsonParser.ParseToString(new AccountToken()
+                return Ok(new AccountToken()
                 {
                     Email = serviceResult.Result.Email,
                     Token = serviceResult.Result.Token
-                }));
+                });
             }
             else
             {
