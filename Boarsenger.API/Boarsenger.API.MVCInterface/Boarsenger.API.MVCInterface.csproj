@@ -6,6 +6,12 @@
 
   <ItemGroup>
     <Folder Include="Views\Account\" />
+    <Folder Include="APIControllers\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>

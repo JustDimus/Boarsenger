@@ -1,0 +1,73 @@
+﻿@model Boarsenger.API.MVCInterface.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registration";
+    Layout = "~/Views/Authorization/Authorization.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h2 id="main_text" class="text-center pt-3 pb-2">@ViewData["Title"]</h2>
+        <form asp-action="Registration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="SecondName" class="control-label"></label>
+                        <input asp-for="SecondName" class="form-control" />
+                        <span asp-validation-for="SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="NickName" class="control-label"></label>
+                        <input asp-for="NickName" class="form-control" />
+                        <span asp-validation-for="NickName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="DayOfBirth" class="control-label"></label>
+                        <input id="add_text" asp-for="DayOfBirth" class="form-control" />
+                        <span  asp-validation-for="DayOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="Password" class="control-label"></label>
+                        <input type="password" asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label id="add_text" asp-for="ConfirmPassword" class="control-label"></label>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="main_text" class="form-group pt-3">
+                <button value="Sign Up" class="btn btn-primary btn-block">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

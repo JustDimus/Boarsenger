@@ -2,8 +2,6 @@
 using Boarsenger.API.Core.Models;
 using Boarsenger.API.DAL.Repository;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Boarsenger.API.BLL.Service.Implementations
@@ -95,7 +93,22 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
-        public async Task<IServiceResult> TryLogOutAsync(AccountTokenDTO accountToken)
+        public Task<IServiceResult<string>> ClearAccountTokenAsync(AccountTokenDTO accountToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<AccountTokenDTO>> GenerateAccountTokenAsync(AccountCredentialsDTO loginModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<Guid>> RegisterAsync(AccountCredentialsDTO registrationModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentialsDTO loginModel)
         {
             return await this.accountTokenService.ClearAccountToken(accountToken);
         }
