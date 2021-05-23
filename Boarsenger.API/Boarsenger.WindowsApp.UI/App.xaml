@@ -1,0 +1,12 @@
+﻿<Application x:Class="Boarsenger.WindowsApp.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Boarsenger.WindowsApp.UI"
+             xmlns:viewModels="clr-namespace:Boarsenger.WindowsApp.UI.ViewModels"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <viewModels:ApplicationLocator x:Key="Locator"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
