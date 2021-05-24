@@ -37,5 +37,17 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         {
             return View();
         }
+
+        
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+        
+        public IActionResult ProfileEdit()
+        {
+            return View("");
+        }
     }
 }
