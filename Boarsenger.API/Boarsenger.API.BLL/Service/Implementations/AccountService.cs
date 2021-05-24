@@ -103,14 +103,9 @@ namespace Boarsenger.API.BLL.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<Guid>> RegisterAsync(AccountCredentialsDTO registrationModel)
+        public Task<IServiceResult> TryLogOutAsync(AccountTokenDTO accountToken)
         {
             throw new NotImplementedException();
-        }
-
-        public Task<IServiceResult<Guid>> TryLogInAsync(AccountCredentialsDTO loginModel)
-        {
-            return await this.accountTokenService.ClearAccountToken(accountToken);
         }
     }
 }

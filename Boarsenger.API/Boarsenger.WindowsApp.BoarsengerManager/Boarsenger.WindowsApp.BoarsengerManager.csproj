@@ -7,10 +7,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SendRequest\" />
+    <ProjectReference Include="..\Boarsenger.Libraries.Telemetry\Boarsenger.Libraries.Telemetry.csproj" />
+    <ProjectReference Include="..\Boarsenger.WindowsApp.NetworkCommunications\Boarsenger.WindowsApp.NetworkCommunications.csproj" />
+    <ProjectReference Include="..\Boarsenger.WindowsApp.System\Boarsenger.WindowsApp.System.csproj" />
   </ItemGroup>
 
 </Project>

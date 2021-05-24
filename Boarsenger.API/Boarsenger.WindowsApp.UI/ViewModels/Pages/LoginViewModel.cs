@@ -1,4 +1,6 @@
-﻿using Boarsenger.WindowsApp.UI.Commands;
+﻿using Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager;
+using Boarsenger.WindowsApp.BoarsengerManager.Models;
+using Boarsenger.WindowsApp.UI.Commands;
 using Boarsenger.WindowsApp.UI.Navigation;
 using Boarsenger.WindowsApp.UI.ViewModels.Base;
 using System;
@@ -11,14 +13,17 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
     public class LoginViewModel : ViewModelBase, IPageViewModel
     {
         private INavigationService navigationService;
+        private IBoarsengerManager boarsengerManager;
 
         public LoginViewModel(
-            INavigationService navigationService)
+            INavigationService navigationService,
+            IBoarsengerManager boarsengerManager)
         {
             this.AuthorizeCommand = new RelayCommand(AuthorizeAction, (obj) => true);
             this.SwitchToRegisterCommand = new RelayCommand(GotoRegisterPageAction, (obj) => true);
 
             this.navigationService = navigationService;
+            this.boarsengerManager = boarsengerManager;
         }
 
 
@@ -56,6 +61,14 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
                 OnPropertyChanged(nameof(ErrorMessage));
                 return;
             }
+
+            var result = this.boarsengerManager.TryLogInAsync(new AccountCreditionals()
+            {
+                Login = this.Login,
+                Password = this.Password
+            }).GetAwaiter().GetResult();
+
+            this.ErrorMessage = result ? "Успех" : "Ошибка";
         }
     }
 }
