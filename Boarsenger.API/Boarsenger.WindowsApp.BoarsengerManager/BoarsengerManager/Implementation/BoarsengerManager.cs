@@ -3,6 +3,7 @@ using Boarsenger.WindowsApp.BoarsengerManager.Models;
 using Boarsenger.WindowsApp.BoarsengerManager.SendRequest;
 using Boarsenger.WindowsApp.BoarsengerManager.Services;
 using Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation;
+using Boarsenger.WindowsApp.NetworkCommunications.Models;
 using Boarsenger.WindowsApp.NetworkCommunications.Services;
 using Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation;
 using Boarsenger.WindowsApp.SystemManager.RegistryHelper;
@@ -44,24 +45,32 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
             this.requestConsumer = provider.GetRequiredService<IRequestConsumer>();
         }
 
-
         public async Task<bool> TryLogInAsync(AccountCreditionals accountCreditionals)
-        {/*
+        {
             using (CancellationTokenSource source = new CancellationTokenSource(30000))
-            {*/
-                var result = this.requestConsumer.AddRequestAsync(new LoginRequest(new Libraries.Telemetry.Models.AccountCreditionals()
-                {
-                    Email = accountCreditionals.Login,
-                    Password = accountCreditionals.Password
-                })/*, nullsource.Token*/);
+            {
+                IRequestResult requestResult = null;
 
-                if (result?.StatusCode != 200)
+                try
+                {
+                    requestResult = this.requestConsumer.AddRequestAsync(new LoginRequest(new Libraries.Telemetry.Models.AccountCreditionals()
+                    {
+                        Email = accountCreditionals.Login,
+                        Password = accountCreditionals.Password
+                    }), source.Token).GetAwaiter().GetResult();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+                if (requestResult == null || requestResult.StatusCode != 200)
                 {
                     return false;
                 }
 
                 var token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
-                    result.Message);
+                    requestResult.Message);
 
                 AccountAuthorizationData authData = new AccountAuthorizationData()
                 {
@@ -76,26 +85,34 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
                 this.accountTokenObservable.OnNext(authData);
 
                 return true;
-           /* }*/
+            }
         }
 
         public async Task<bool> TryRegisterAsync(AccountCreditionals accountCreditionals)
-        {/*
+        {
             using (CancellationTokenSource source = new CancellationTokenSource(30000))
-            {*/
-                var result = this.requestConsumer.AddRequestAsync(new RegisterRequest(new Libraries.Telemetry.Models.AccountCreditionals()
+            {
+                IRequestResult requestResult = null;
+                try
                 {
-                    Email = accountCreditionals.Login,
-                    Password = accountCreditionals.Password
-                })/*, source.Token*/);
+                    requestResult = await this.requestConsumer.AddRequestAsync(new RegisterRequest(new Libraries.Telemetry.Models.AccountCreditionals()
+                    {
+                        Email = accountCreditionals.Login,
+                        Password = accountCreditionals.Password
+                    }), source.Token);
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
 
-                if (result.StatusCode != 200)
+                if (requestResult == null || requestResult.StatusCode != 200)
                 {
                     return false;
                 }
 
                 Libraries.Telemetry.Models.AccountToken token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
-                    result.Message);
+                    requestResult.Message);
 
                 AccountAuthorizationData authData = new AccountAuthorizationData()
                 {
@@ -110,7 +127,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
                 this.accountTokenObservable.OnNext(authData);
 
                 return true;
-           /* }*/
+            }
         }
 
         #region Dispose

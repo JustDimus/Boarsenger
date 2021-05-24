@@ -26,7 +26,6 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
             this.boarsengerManager = boarsengerManager;
         }
 
-
         public string Login { get; set; }
 
         public string Password { get; set; }
@@ -44,7 +43,14 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
             if (isAuthorized)
             {
                 this.navigationService.NavigateTo(Page.Home);
+                return;
             }
+
+            this.Login = this.boarsengerManager.AuthorizationService.AccountCreditionals.Login;
+            this.Password = this.boarsengerManager.AuthorizationService.AccountCreditionals.Password;
+
+            OnPropertyChanged(nameof(this.Login));
+            OnPropertyChanged(nameof(this.Password));
         }
 
         public void OnPageUnloaded()
@@ -52,13 +58,12 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         }
 
-
         private void GotoRegisterPageAction(object obj)
         {
             this.navigationService.NavigateTo(Page.Register);
         }
 
-        private void AuthorizeAction(object obj)
+        private async void AuthorizeAction(object obj)
         {
             if (string.IsNullOrEmpty(this.Login) || string.IsNullOrEmpty(this.Password))
             {
@@ -67,13 +72,20 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
                 return;
             }
 
-            var result = this.boarsengerManager.TryLogInAsync(new AccountCreditionals()
+            var result = await this.boarsengerManager.TryLogInAsync(new AccountCreditionals()
             {
                 Login = this.Login,
                 Password = this.Password
-            }).GetAwaiter().GetResult();
+            });
 
             this.ErrorMessage = result ? "Успех" : "Ошибка";
+
+            OnPropertyChanged(nameof(this.ErrorMessage));
+
+            if (result)
+            {
+                this.navigationService.NavigateTo(Page.Home);
+            }
         }
     }
 }

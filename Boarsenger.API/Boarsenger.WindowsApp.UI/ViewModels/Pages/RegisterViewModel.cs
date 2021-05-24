@@ -48,7 +48,7 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         }
 
-        private void RegisterAction(object obj)
+        private async void RegisterAction(object obj)
         {
             if (string.IsNullOrEmpty(Login) 
                 || string.IsNullOrEmpty(Password)
@@ -64,13 +64,20 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
                 OnPropertyChanged(nameof(ErrorMessage));
             }
 
-            var result = this.boarsengerManager.TryRegisterAsync(new AccountCreditionals()
+            var result = await this.boarsengerManager.TryRegisterAsync(new AccountCreditionals()
             {
                 Login = this.Login,
                 Password = this.Password
-            }).GetAwaiter().GetResult();
+            });
 
             this.ErrorMessage = result ? "Успех" : "Ошибка";
+
+            OnPropertyChanged(nameof(this.ErrorMessage));
+
+            if (result)
+            {
+                this.navigationService.NavigateTo(Page.Home);
+            }
         }
 
         private void GotoLoginPageAction(object obj)

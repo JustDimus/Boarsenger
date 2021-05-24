@@ -20,12 +20,13 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
             this.baseUri = ConfigurationManager.AppSettings["api.uri"];
         }
 
-        public IRequestResult AddRequestAsync(
-            ISendRequest sendRequest/*, 
-            CancellationToken requestCancelToken*/)
+        public Task<IRequestResult> AddRequestAsync(
+            ISendRequest sendRequest, 
+            CancellationToken requestCancelToken)
         {
-            return SendMessage(sendRequest);
-            //return new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
+            var task = new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
+            task.Start();
+            return task;
         }
 
         private IRequestResult SendMessage(ISendRequest sendRequest)
@@ -53,7 +54,6 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
             Uri currentUri = new Uri(string.Concat(this.baseUri, sendRequest.URL));
             var request = (HttpWebRequest)WebRequest.Create(currentUri);
 
-            
             request.Method = restMethod;
             request.ContentType = "application/json";
 

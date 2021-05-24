@@ -76,7 +76,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation
             this.registryManager.SetValue(
                 RegistryConstants.SETTINGS_DIRECTORY,
                 RegistryConstants.IS_AUTHORIZED,
-                true);
+                false);
         }
 
         public void OnNext(AccountAuthorizationData accountAuthorizationData)

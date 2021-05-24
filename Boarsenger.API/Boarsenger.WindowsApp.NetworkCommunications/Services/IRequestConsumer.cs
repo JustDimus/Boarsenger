@@ -9,7 +9,7 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services
 {
     public interface IRequestConsumer
     {
-        IRequestResult AddRequestAsync(ISendRequest sendRequest/*, CancellationToken requestCancelToken*/);
+        Task<IRequestResult> AddRequestAsync(ISendRequest sendRequest, CancellationToken requestCancelToken);
 
     }
 }
