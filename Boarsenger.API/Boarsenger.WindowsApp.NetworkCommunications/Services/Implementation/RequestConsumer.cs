@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -19,11 +20,12 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
             this.baseUri = ConfigurationManager.AppSettings["api.uri"];
         }
 
-        public Task<IRequestResult> AddRequestAsync(
-            ISendRequest sendRequest, 
-            CancellationToken requestCancelToken)
+        public IRequestResult AddRequestAsync(
+            ISendRequest sendRequest/*, 
+            CancellationToken requestCancelToken*/)
         {
-            return new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
+            return SendMessage(sendRequest);
+            //return new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
         }
 
         private IRequestResult SendMessage(ISendRequest sendRequest)
@@ -48,20 +50,35 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
                     break;
             }
 
-            Uri currentUri = new Uri(string.Concat(this.baseUri, sendRequest.URL.AbsoluteUri));
-
+            Uri currentUri = new Uri(string.Concat(this.baseUri, sendRequest.URL));
             var request = (HttpWebRequest)WebRequest.Create(currentUri);
 
+            
             request.Method = restMethod;
             request.ContentType = "application/json";
 
-            byte[] array = Encoding.Unicode.GetBytes(sendRequest.PayLoad);
+            byte[] array = Encoding.UTF8.GetBytes(sendRequest.PayLoad);
 
             request.ContentLength = array.Length;
 
-            request.GetRequestStream().Write(array);
+            var req = request.GetRequestStream();
 
-            var response = (HttpWebResponse)request.GetResponse();
+            req.Write(array, 0, array.Length);
+
+            req.Close();
+
+            HttpWebResponse response = null;
+
+            string error = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return null;
+            }
 
             RequestResult result = new RequestResult();
 
@@ -69,13 +86,10 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
 
             var responseMessage = response.GetResponseStream();
 
-            byte[] responseResult = new byte[responseMessage.Length];
-
-            responseMessage.Seek(0, System.IO.SeekOrigin.Begin);
-
-            responseMessage.Read(responseResult, 0, (int)responseMessage.Length);
-
-            result.Message = Encoding.Unicode.GetString(responseResult);
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                result.Message =  reader.ReadToEnd();
+            }
 
             return result;
         }

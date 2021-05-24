@@ -51,6 +51,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
 
                 var accountToken = await this.accountTokenService.GenerateAccountToken(new AccountDataDTO()
                 {
+                    Id = account.Id,
                     Email = account.Email
                 });
 
@@ -80,6 +81,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
 
                 var accountToken = await this.accountTokenService.GenerateAccountToken(new AccountDataDTO()
                 {
+                    Id = account.Id,
                     Email = account.Email
                 });
 

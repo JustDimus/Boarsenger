@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Boarsenger.Libraries.Telemetry\Boarsenger.Libraries.Telemetry.csproj" />
     <ProjectReference Include="..\Boarsenger.WindowsApp.NetworkCommunications\Boarsenger.WindowsApp.NetworkCommunications.csproj" />
-    <ProjectReference Include="..\Boarsenger.WindowsApp.System\Boarsenger.WindowsApp.System.csproj" />
+    <ProjectReference Include="..\Boarsenger.WindowsApp.SystemManager\Boarsenger.WindowsApp.SystemManager.csproj" />
   </ItemGroup>
 
 </Project>

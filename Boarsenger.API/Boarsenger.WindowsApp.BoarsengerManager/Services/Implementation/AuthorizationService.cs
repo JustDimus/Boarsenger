@@ -1,13 +1,13 @@
 ﻿using Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager;
 using Boarsenger.WindowsApp.BoarsengerManager.Models;
-using Boarsenger.WindowsApp.System.Constants;
-using Boarsenger.WindowsApp.System.RegistryHelper;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Newtonsoft.Json;
 using System.Text;
+using Boarsenger.WindowsApp.SystemManager.RegistryHelper;
+using Boarsenger.WindowsApp.SystemManager.Constants;
 
 namespace Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation
 {

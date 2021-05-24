@@ -14,7 +14,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.SendRequest
             this.PayLoad = JsonParser.ParseToString(creditionals);
         }
 
-        public Uri URL => new Uri("api/account/login");
+        public string URL => "api/account/login";
 
         public RESTMETHOD Restmethod => RESTMETHOD.POST;
 

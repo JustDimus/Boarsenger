@@ -9,12 +9,12 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
     {
         public void OnPageLoaded()
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnPageUnloaded()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

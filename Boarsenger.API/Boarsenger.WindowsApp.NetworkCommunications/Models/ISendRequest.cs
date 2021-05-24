@@ -6,7 +6,7 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Models
 {
     public interface ISendRequest
     {
-        public Uri URL { get; }
+        public string URL { get; }
 
         public RESTMETHOD Restmethod { get; }
 

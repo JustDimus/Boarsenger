@@ -9,7 +9,7 @@ namespace Boarsenger.Libraries.Telemetry.Parser
     {
         public static T ParseToObject<T>(string value)
         {
-            return (T)JsonConvert.DeserializeObject(value);
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         public static string ParseToString<T>(T entity)

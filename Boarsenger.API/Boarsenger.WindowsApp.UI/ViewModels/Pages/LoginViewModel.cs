@@ -39,7 +39,12 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         public void OnPageLoaded()
         {
+            bool isAuthorized = this.boarsengerManager.AuthorizationService.IsAuthorized;
 
+            if (isAuthorized)
+            {
+                this.navigationService.NavigateTo(Page.Home);
+            }
         }
 
         public void OnPageUnloaded()
