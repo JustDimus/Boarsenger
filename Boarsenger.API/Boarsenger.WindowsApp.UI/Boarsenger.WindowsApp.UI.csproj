@@ -11,4 +11,10 @@
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Boarsenger.WindowsApp.BoarsengerManager\Boarsenger.WindowsApp.BoarsengerManager.csproj" />
+  </ItemGroup>
+
+  
+
 </Project>

@@ -11,6 +11,6 @@
         <Binding Source="{StaticResource Locator}" Path="HomeViewModel"/>
     </Page.DataContext>
     <Grid>
-        
+        <Button Command="{Binding Path=LogOutCommand}">LogOut</Button>
     </Grid>
 </local:BasePage>

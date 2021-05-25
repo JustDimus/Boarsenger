@@ -1,4 +1,5 @@
-﻿using Boarsenger.WindowsApp.UI.Navigation;
+﻿using Boarsenger.WindowsApp;
+using Boarsenger.WindowsApp.UI.Navigation;
 using Boarsenger.WindowsApp.UI.ViewModels.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +15,8 @@ namespace Boarsenger.WindowsApp.UI.ViewModels
             IServiceCollection collection = new ServiceCollection();
 
             collection.AddSingleton<INavigationService, NavigationService>();
+            collection.AddTransient<BoarsengerManager.BoarsengerManager.IBoarsengerManager,
+                BoarsengerManager.BoarsengerManager.Implementation.BoarsengerManager>();
             collection.AddTransient<MainWindowViewModel>();
             collection.AddTransient<LoginViewModel>();
             collection.AddTransient<RegisterViewModel>();

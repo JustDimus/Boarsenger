@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Boarsenger.WindowsApp.System.Constants
+namespace Boarsenger.WindowsApp.SystemManager.Constants
 {
     public static class RegistryConstants
     {
