@@ -1,4 +1,6 @@
-﻿using Boarsenger.API.MVCInterface.ViewModels;
+﻿using Boarsenger.API.BLL.Models;
+using Boarsenger.API.BLL.Service;
+using Boarsenger.API.MVCInterface.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +17,13 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private readonly IAccountService accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            this.accountService = accountService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -24,7 +33,39 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromForm]LoginViewModel loginModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(loginModel);
+            }
+
+            AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
+            {
+                Email = loginModel.Email,
+                Password = loginModel.Password
+            };
+
+            var serviceResult = await this.accountService.TryLogInAsync(accountDTO);
+
+            if (serviceResult.IsSuccesful)
+            {
+                RedirectToAction("ServerManagement", "Profile");
+
+                return Ok(new AccountTokenDTO()
+                {
+                    Email = serviceResult.Result.Email,
+                    Token = serviceResult.Result.Token
+                });
+
+                //return new JsonResult(new AccountToken()
+                //{
+                //    Email = serviceResult.Result.Email,
+                //    Token = serviceResult.Result.Token
+                //});
+            }
+            else
+            {
+                return NotFound(serviceResult.Message);
+            }
         }
 
         [HttpGet]
@@ -38,7 +79,33 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         [AllowAnonymous]
         public async Task<IActionResult> Registration([FromForm]RegisterViewModel registrationModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(registrationModel);
+            }
+
+            AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
+            {
+                Email = registrationModel.Email,
+                Password = registrationModel.Password
+            };
+
+            var serviceResult = await this.accountService.RegisterAsync(accountDTO);
+
+            if (serviceResult.IsSuccesful)
+            {
+                RedirectToAction("Login", "Account");
+
+                return Ok(new AccountTokenDTO()
+                {
+                    Email = serviceResult.Result.Email,
+                    Token = serviceResult.Result.Token
+                });
+            }
+            else
+            {
+                return Ok(serviceResult.Message);
+            }
         }
 
         [HttpGet]
@@ -53,6 +120,7 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult ProfileEdit()
         {
             return View("");

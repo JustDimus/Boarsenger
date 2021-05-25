@@ -95,6 +95,9 @@ namespace Boarsenger.API.MVCInterface
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Management",
+                    pattern: "Profile/ServerManagement/{id?}");
             });
         }
     }
