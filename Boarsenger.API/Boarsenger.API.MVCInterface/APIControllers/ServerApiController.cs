@@ -1,6 +1,7 @@
 ﻿using Boarsenger.API.BLL.Models;
 using Boarsenger.API.BLL.Service;
 using Boarsenger.Libraries.Telemetry.Models;
+using Boarsenger.Libraries.Telemetry.Parser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -114,6 +115,82 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             {
                 return BadRequest(result.Message);
             }
+        }
+    
+        [HttpPost]
+        public async Task<IActionResult> GetServerList()
+        {
+            var serviceResult = await this.serverService.GetServerListAsync(new PageDataDTO()
+            {
+                PageNumber = 0,
+                PageSize = 10
+            });
+
+            var result = new ServerResult()
+            {
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful
+                ? JsonParser.ParseToString(new ServerPageData()
+                {
+                    ServerList = serviceResult.Result.PageData.Select(c => 
+                    new ServerData()
+                    {
+                        Title = c.Title,
+                        Description = c.Description,
+                        MaxUserCount = c.MaxUserCount,
+                        IsAdultOnly = c.IsAdultOnly,
+                        ServerIP = c.ServerIP
+                    }).ToList(),
+                    CanMoveBack = serviceResult.Result.CanMoveBack,
+                    CanMoveForward = serviceResult.Result.CanMoveNext,
+                    CurrentPage = serviceResult.Result.CurrentPage,
+                    CurrentPageSize = serviceResult.Result.PageSize
+                })
+                : serviceResult.Message
+            };
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetMyServers(AccountToken accountToken)
+        {
+            var serviceResult = await this.serverService.GetMyServersAsync(
+                new PageDataDTO()
+                {
+                    PageNumber = 0,
+                    PageSize = 10
+                },
+                new AccountTokenDTO()
+                {
+                    Email = accountToken.Email,
+                    Token = accountToken.Token
+                });
+
+            var result = new ServerResult()
+            {
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful
+                ? JsonParser.ParseToString(new ServerPageData()
+                {
+                    ServerList = serviceResult.Result.PageData.Select(c =>
+                    new ServerData()
+                    {
+                        Title = c.Title,
+                        Description = c.Description,
+                        MaxUserCount = c.MaxUserCount,
+                        IsAdultOnly = c.IsAdultOnly,
+                        ServerIP = c.ServerIP
+                    }).ToList(),
+                    CanMoveBack = serviceResult.Result.CanMoveBack,
+                    CanMoveForward = serviceResult.Result.CanMoveNext,
+                    CurrentPage = serviceResult.Result.CurrentPage,
+                    CurrentPageSize = serviceResult.Result.PageSize
+                })
+                : serviceResult.Message
+            };
+
+            return Ok(result);
         }
     }
 }

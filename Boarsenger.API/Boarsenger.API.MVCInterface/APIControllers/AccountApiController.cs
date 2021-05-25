@@ -118,5 +118,66 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> GetAccountData(AccountToken accountToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
+            }
+
+            var serviceResult = await this.accountService.GetAccountDataAsync(new AccountTokenDTO()
+            {
+                Email = accountToken.Email,
+                Token = accountToken.Token
+            });
+
+            ServerResult result = new ServerResult()
+            {
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful
+                ? JsonParser.ParseToString(new AccountInfo()
+                {
+                    Email = serviceResult.Result.Email,
+                    Age = serviceResult.Result.Age,
+                    FirstName = serviceResult.Result.FirstName,
+                    SecondName = serviceResult.Result.SecondName
+                })
+                : serviceResult.Message
+            };
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetAccountData(FullAccountData accountData)
+        {
+            var serviceResult = await this.accountService.SetAccountDataAsync(new AccountChangeDataDTO()
+            {
+                AccountToken = new AccountTokenDTO()
+                {
+                    Email = accountData.AccountToken.Email,
+                    Token = accountData.AccountToken.Token
+                },
+                AccountData = new AccountDataDTO()
+                {
+                    Age = accountData.AccountInfo.Age,
+                    Email = accountData.AccountInfo.Email,
+                    FirstName = accountData.AccountInfo.FirstName,
+                    SecondName = accountData.AccountInfo.SecondName,
+                    Password = accountData.AccountInfo.Password
+                }
+            });
+
+            return Ok(new ServerResult()
+            {
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful ? serviceResult.Message : string.Empty
+            });
+        }
     }
 }
