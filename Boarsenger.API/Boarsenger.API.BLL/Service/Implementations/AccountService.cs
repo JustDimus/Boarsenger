@@ -104,22 +104,24 @@ namespace Boarsenger.API.BLL.Service.Implementations
                     Token = accountToken.Token
                 });
 
-                if (accountId.IsSuccesful)
+                if (!accountId.IsSuccesful)
                 {
                     return ServiceResult<AccountDataDTO>.FromResult(false, null, accountId.Message);
                 }
 
-                var accountData = await this.accountRepository.GetAsync(a => a.Id == accountId.Result, a =>
-                    new AccountDataDTO()
-                    {
-                        Email = a.Email,
-                        Age = a.Age,
-                        FirstName = a.FirstName,
-                        Password = string.Empty,
-                        SecondName = a.SecondName
-                    });
+                var accountData = await this.accountRepository.GetAsync(a => a.Id == accountId.Result);
 
-                return ServiceResult<AccountDataDTO>.FromResult(true, accountData);
+                var accountDataDTO = new AccountDataDTO()
+                {
+                    Email = accountData.Email,
+                    Age = accountData.Age,
+                    FirstName = accountData.FirstName,
+                    Password = accountData.Password,
+                    SecondName = accountData.SecondName
+                };
+
+
+                return ServiceResult<AccountDataDTO>.FromResult(true, accountDataDTO);
             }
             catch (Exception ex)
             {
