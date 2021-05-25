@@ -8,20 +8,28 @@ namespace Boarsenger.API.BLL.Service
 {
     public interface IServerService
     {
-        Task<IServiceResult<UpdateServerDataDTO>> CreateServer(ChangeServerSettingsDTO createServerData);
+        Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ChangeServerSettingsDTO createServerData);
+        
+        Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ServerDataDTO createServerData);
 
-        Task<IServiceResult> UpdateServerData(UpdateServerDataDTO updateServerData);
+        Task<IServiceResult> UpdateServerDataAsync(UpdateServerDataDTO updateServerData);
 
-        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerData(PageDataDTO pageData);
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerDataAsync(PageDataDTO pageData);
 
-        Task<IServiceResult> ChangeServerStatus(UpdateServerPublicationStatusDTO publicationData);
+        Task<IServiceResult> ChangeServerStatusAsync(UpdateServerPublicationStatusDTO publicationData);
 
-        Task<IServiceResult<ServerTokenDTO>> ChangeServerToken(ServerInfoUpdate changeServerInfo);
+        Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(ServerInfoUpdate changeServerInfo);
 
-        Task<IServiceResult> DeleteServer(ServerInfoUpdate deleteServerInfo);
+        Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(ServerTokenDTO serverToken);
 
-        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerList(PageDataDTO pageData);
+        Task<IServiceResult> DeleteServerAsync(ServerInfoUpdate deleteServerInfo);
 
-        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServers(PageDataDTO pageData, AccountTokenDTO accountToken);
+        Task<IServiceResult> DeleteServerAsync(ServerTokenDTO serverToken);
+
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerListAsync(PageDataDTO pageData);
+
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken);
+
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData);
     }
 }

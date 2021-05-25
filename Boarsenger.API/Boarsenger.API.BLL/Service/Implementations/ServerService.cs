@@ -28,22 +28,22 @@ namespace Boarsenger.API.BLL.Service.Implementations
             this.encryptionService = encryptionService;
         }
 
-        public Task<IServiceResult> ChangeServerStatus(UpdateServerPublicationStatusDTO publicationData)
+        public Task<IServiceResult> ChangeServerStatusAsync(UpdateServerPublicationStatusDTO publicationData)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<ServerTokenDTO>> ChangeServerToken(ServerInfoUpdate changeServerInfo)
+        public Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(ServerInfoUpdate changeServerInfo)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IServiceResult<UpdateServerDataDTO>> CreateServer(ChangeServerSettingsDTO createServerData)
+        public async Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ChangeServerSettingsDTO createServerData)
         {
             try
             {
                 var accountGuidResult = await this.accountTokenService
-                    .GetAccountIdByToken(createServerData.ServerInfoUpdateData.AccountToken);
+                    .GetAccountIdByTokenAsync(createServerData.ServerInfoUpdateData.AccountToken);
 
                 if (!accountGuidResult.IsSuccesful)
                 {
@@ -99,27 +99,27 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
-        public Task<IServiceResult> DeleteServer(ServerInfoUpdate deleteServerInfo)
+        public Task<IServiceResult> DeleteServerAsync(ServerInfoUpdate deleteServerInfo)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServers(PageDataDTO pageData, AccountTokenDTO accountToken)
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerData(PageDataDTO pageData)
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerDataAsync(PageDataDTO pageData)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerList(PageDataDTO pageData)
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerListAsync(PageDataDTO pageData)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult> UpdateServerData(UpdateServerDataDTO updateServerData)
+        public Task<IServiceResult> UpdateServerDataAsync(UpdateServerDataDTO updateServerData)
         {
             throw new NotImplementedException();
         }

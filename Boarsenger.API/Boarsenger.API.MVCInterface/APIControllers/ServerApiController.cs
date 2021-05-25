@@ -53,7 +53,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
                 }
             };
 
-            var result = await this.serverService.CreateServer(serverChangeData);
+            var result = await this.serverService.CreateServerAsync(serverChangeData);
 
             if (result.IsSuccesful)
             {
@@ -104,7 +104,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
                 }
             };
 
-            var result = await this.serverService.ChangeServerStatus(data);
+            var result = await this.serverService.ChangeServerStatusAsync(data);
 
             if (result.IsSuccesful)
             {
