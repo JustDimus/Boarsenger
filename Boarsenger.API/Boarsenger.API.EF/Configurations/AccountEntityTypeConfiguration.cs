@@ -11,7 +11,15 @@ namespace Boarsenger.API.EF.Configurations
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(a => a.Id);
+            builder
+                .HasMany(a => a.OwnedServers)
+                .WithOne(a => a.Owner)
+                .HasForeignKey(a => a.OwnerId);
+            builder
+                .HasMany(a => a.Tokens)
+                .WithOne(t => t.Account)
+                .HasForeignKey(t => t.AccountId);
         }
     }
 }

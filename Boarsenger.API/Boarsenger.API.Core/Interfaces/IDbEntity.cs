@@ -7,6 +7,6 @@ namespace Boarsenger.API.Core.Interfaces
 {
     public interface IDbEntity
     {
-        Guid ID { get; set; }
+
     }
 }

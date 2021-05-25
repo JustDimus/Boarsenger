@@ -7,7 +7,9 @@ namespace Boarsenger.API.Core.Models
 {
     public class Server : IDbEntity
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
+
+        public Guid OwnerId { get; set; }
 
         public Account Owner { get; set; }
 
@@ -15,12 +17,16 @@ namespace Boarsenger.API.Core.Models
 
         public bool IsPublished { get; set; }
 
+        public bool IsAdultOnly { get; set; }
+
         public bool IsBanned { get; set; }
 
         public string IP { get; set; }
 
         public IEnumerable<ServerStatistic> ServerInfoCollection { get; set; }
 
-        public IEnumerable<AuthorizationAccount> JoinedUsers { get; set; }
+        public IEnumerable<ServerToken> ServerTokens { get; set; }
+
+        //public IEnumerable<Account> JoinedUsers { get; set; }
     }
 }

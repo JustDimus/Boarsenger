@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.DAL.Repository.Implementations
 {
-    public class Repository<TEntity> where TEntity : class, IDbEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IDbEntity
     {
         private DbContext context;
 

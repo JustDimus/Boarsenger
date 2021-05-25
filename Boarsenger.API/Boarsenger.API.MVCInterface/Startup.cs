@@ -1,7 +1,15 @@
+using Boarsenger.API.BLL.Service;
+using Boarsenger.API.BLL.Service.Implementations;
+using Boarsenger.API.Core.Models;
+using Boarsenger.API.DAL.Repository;
+using Boarsenger.API.DAL.Repository.Implementations;
+using Boarsenger.API.EF;
+using Boarsenger.API.MVCInterface.FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +32,25 @@ namespace Boarsenger.API.MVCInterface
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddFluentValidation();
+            services
+                .AddDbContext<APIDbContext>(c => 
+                c.UseSqlServer(Configuration.GetConnectionString("API.DbConnection")));
+
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<DbContext>(c => c.GetRequiredService<APIDbContext>());
+
+            services.AddTransient<IEncryptionService, EncryptionService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountTokenService, AccountTokenService>();
+            services.AddTransient<IServerService, ServerService>();
+            services.AddTransient<IServerTokenService, ServerTokenService>();
+
+            services.AddControllersWithViews(setup =>
+            {
+            }).AddFluentValidation(setup =>
+            {
+                setup.RegisterValidatorsFromAssemblyContaining<AccountCreditionalsValidationRules>();
+            }).AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
