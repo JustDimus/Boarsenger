@@ -14,31 +14,43 @@ namespace Boarsenger.API.BLL.Service.Implementations
         private IAccountTokenService accountTokenService;
         private IEncryptionService encryptionService;
         private IServerTokenService serverTokenService;
+        private IAuthorizationService authorizationService;
 
         public ServerService(
             IRepository<Server> serverRepository,
             IAccountTokenService accountTokenService,
             IEncryptionService encryptionService,
-            IServerTokenService serverTokenService)
+            IServerTokenService serverTokenService,
+            IAuthorizationService authorizationService)
         {
             this.serverRepository = serverRepository;
             this.serverTokenService = serverTokenService;
+            this.authorizationService = authorizationService;
 
             this.accountTokenService = accountTokenService;
             this.encryptionService = encryptionService;
         }
 
-        public Task<IServiceResult> ChangeServerStatusAsync(UpdateServerPublicationStatusDTO publicationData)
+        public Task<IServiceResult> ChangeServerStatusAsync(
+            UpdateServerPublicationStatusDTO publicationData)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(ServerInfoUpdate changeServerInfo)
+        public Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(
+            ServerInfoUpdate changeServerInfo)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ChangeServerSettingsDTO createServerData)
+        public Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(
+            ServerTokenDTO serverToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(
+            ChangeServerSettingsDTO createServerData)
         {
             try
             {
@@ -62,7 +74,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
                     IP = createServerData.ServerData.ServerIP,
                     IsAdultOnly = createServerData.ServerData.IsAdultOnly,
                     IsBanned = false,
-                    IsPublished = false,
+                    IsPublished = true,
                     Title = createServerData.ServerData.Title,
                     OwnerId = accountGuidResult.Result
                 };
@@ -99,14 +111,77 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
+        public Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(
+            ServerDataDTO createServerData)
+        {
+            return CreateServerAsync(new ChangeServerSettingsDTO()
+            {
+                ServerData = createServerData,
+                ServerInfoUpdateData = new ServerInfoUpdate()
+                {
+                    AccountToken = new AccountTokenDTO()
+                    {
+                        Token = this.authorizationService.GetAccountToken()
+                    }
+                }
+            });
+        }
+
         public Task<IServiceResult> DeleteServerAsync(ServerInfoUpdate deleteServerInfo)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
+        public Task<IServiceResult> DeleteServerAsync(ServerTokenDTO serverToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
+        {
+            try
+            {
+                var accountId = await this.accountTokenService.GetAccountIdByTokenAsync(accountToken);
+
+                if (!accountId.IsSuccesful)
+                {
+                    return ServiceResult<EntityPage<ServerDataDTO>>.FromResult(false, null, accountId.Message);
+                }
+
+                var serverPage = await this.serverRepository.GetPageAsync<ServerDataDTO>(
+                    c => c.OwnerId == accountId.Result,
+                    c => new ServerDataDTO()
+                    {
+                        Title = c.Title,
+                        IsAdultOnly = c.IsAdultOnly,
+                        ServerIP = c.IP
+                    },
+                    pageData.PageNumber,
+                    pageData.PageSize);
+
+                return ServiceResult<EntityPage<ServerDataDTO>>.FromResult(
+                    true,
+                    new EntityPage<ServerDataDTO>()
+                    {
+                        PageData = serverPage,
+                        CurrentPage = pageData.PageNumber,
+                        PageSize = pageData.PageSize,
+                        CanMoveBack = false,
+                        CanMoveNext = false
+                    });
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<EntityPage<ServerDataDTO>>.FromResult(false, null, ex.Message);
+            }
+        }
+
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData)
+        {
+            return GetMyServersAsync(pageData, new AccountTokenDTO()
+            {
+                Token = this.authorizationService.GetAccountToken()
+            });
         }
 
         public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerDataAsync(PageDataDTO pageData)
@@ -114,9 +189,37 @@ namespace Boarsenger.API.BLL.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerListAsync(PageDataDTO pageData)
+        public async Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerListAsync(PageDataDTO pageData)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var serverPage = await this.serverRepository.GetPageAsync<ServerDataDTO>(
+                    c => true,
+                    c => new ServerDataDTO()
+                    {
+                        Title = c.Title,
+                        IsAdultOnly = c.IsAdultOnly,
+                        ServerIP = c.IP
+                    },
+                    pageData.PageNumber,
+                    pageData.PageSize);
+
+                return ServiceResult<EntityPage<ServerDataDTO>>.FromResult(
+                    true,
+                    new EntityPage<ServerDataDTO>()
+                    {
+                        PageData = serverPage,
+                        CurrentPage = pageData.PageNumber,
+                        PageSize = pageData.PageSize,
+                        CanMoveBack = false,
+                        CanMoveNext = false
+                    });
+
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<EntityPage<ServerDataDTO>>.FromResult(false, null, ex.Message);
+            }
         }
 
         public Task<IServiceResult> UpdateServerDataAsync(UpdateServerDataDTO updateServerData)

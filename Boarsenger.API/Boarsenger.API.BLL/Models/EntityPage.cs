@@ -10,9 +10,9 @@ namespace Boarsenger.API.BLL.Models
 
         public int PageSize { get; set; }
 
-        public int CanMoveNext { get; set; }
+        public bool CanMoveNext { get; set; }
 
-        public int CanMoveBack { get; set; }
+        public bool CanMoveBack { get; set; }
 
         public IEnumerable<TEntity> PageData { get; set; }
     }
