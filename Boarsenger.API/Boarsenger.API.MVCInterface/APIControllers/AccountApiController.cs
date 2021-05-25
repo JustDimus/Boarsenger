@@ -91,7 +91,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
          
         [HttpPost]
-        public async Task<IActionResult> Logout(AccountToken accountToken)
+        public async Task<IActionResult> Logout([FromBody] AccountToken accountToken)
         {
             if (!ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAccountData(AccountToken accountToken)
+        public async Task<IActionResult> GetAccountData([FromBody] AccountToken accountToken)
         {
             if (!ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SetAccountData(FullAccountData accountData)
+        public async Task<IActionResult> SetAccountData([FromBody] FullAccountData accountData)
         {
             var serviceResult = await this.accountService.SetAccountDataAsync(new AccountChangeDataDTO()
             {

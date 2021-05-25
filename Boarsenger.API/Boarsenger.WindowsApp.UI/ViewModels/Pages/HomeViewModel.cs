@@ -22,7 +22,7 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
             IBoarsengerManager boarsengerManager)
         {
             this.LogOutCommand = new RelayCommand(LogOut, (obj) => true);
-            this.UpdateCommandCommand = new RelayCommand(Update, (obj) => true);
+            this.UpdateCommand = new RelayCommand(Update, (obj) => true);
             this.CreateServerCommand = new RelayCommand(CreateServer, (obj) => true);
 
             this.navigationService = navigationService;
@@ -31,9 +31,9 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         public ICommand LogOutCommand { get; private set; }
 
-        public List<ServerData> ServerData { get; private set; }
+        public List<ServerData> ServerData { get; private set; } = new List<ServerData>();
 
-        public ICommand UpdateCommandCommand { get; private set; }
+        public ICommand UpdateCommand { get; private set; }
 
         public ICommand CreateServerCommand { get; private set; }
 
@@ -88,11 +88,11 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         private void Update(object obj)
         {
-            var result = this.boarsengerManager.GetServerPage().GetAwaiter().GetResult().ServerList;
+            var result = this.boarsengerManager.GetServerPage().GetAwaiter().GetResult();
 
             if (result != null)
             {
-                this.ServerData = result;
+                this.ServerData = result.ServerList;
                 OnPropertyChanged(nameof(ServerData));
             }
         }
