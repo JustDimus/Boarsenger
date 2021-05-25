@@ -1,4 +1,5 @@
 ﻿using Boarsenger.API.MVCInterface.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -39,13 +40,11 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
             return View();
         }
 
-        
         public IActionResult Profile()
         {
             return View();
         }
 
-        
         public IActionResult ProfileEdit()
         {
             return View("");

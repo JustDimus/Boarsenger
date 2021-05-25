@@ -12,14 +12,13 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.MVCInterface.APIControllers
 {
-    [Area("api")]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountApiController : ControllerBase
     {
         private IAccountService accountService;
 
-        public AccountController(
+        public AccountApiController(
             IAccountService accountService)
         {
             this.accountService = accountService;
