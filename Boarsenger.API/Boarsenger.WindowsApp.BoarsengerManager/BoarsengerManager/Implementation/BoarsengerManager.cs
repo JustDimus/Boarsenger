@@ -22,13 +22,13 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
     {
         private IAuthorizationService authorizationService;
 
-        private ReplaySubject<AccountAuthorizationData> accountTokenObservable = new ReplaySubject<AccountAuthorizationData>();
+        private ReplaySubject<AccountAuthorizationData> accountAuthorizationDataObservable = new ReplaySubject<AccountAuthorizationData>();
 
         public IAuthorizationService AuthorizationService => this.authorizationService;
 
-        public IRequestConsumer requestConsumer;
+        public IRequestSender requestSender;
 
-        public IObservable<AccountAuthorizationData> AccountTokenObservable => this.accountTokenObservable;
+        public IObservable<AccountAuthorizationData> AccountTokenObservable => this.accountAuthorizationDataObservable;
 
         public BoarsengerManager()
         {
@@ -38,103 +38,81 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
             collection.AddSingleton<IAuthorizationService, AuthorizationService>();
             collection.AddTransient<IBoarsengerManager>(c => this);
             collection.AddTransient<IRequestConsumer, RequestConsumer>();
+            collection.AddTransient<IRequestSender, RequestSender>();
 
             IServiceProvider provider = collection.BuildServiceProvider();
 
             this.authorizationService = provider.GetRequiredService<IAuthorizationService>();
-            this.requestConsumer = provider.GetRequiredService<IRequestConsumer>();
+            this.requestSender = provider.GetRequiredService<IRequestSender>();
         }
 
         public async Task<bool> TryLogInAsync(AccountCreditionals accountCreditionals)
         {
-            using (CancellationTokenSource source = new CancellationTokenSource(30000))
+            var response = await this.requestSender.SendRequestAsync(new LoginRequest(new Libraries.Telemetry.Models.AccountCreditionals()
             {
-                IRequestResult requestResult = null;
+                Email = accountCreditionals.Login,
+                Password = accountCreditionals.Password
+            }));
 
-                try
-                {
-                    requestResult = this.requestConsumer.AddRequestAsync(new LoginRequest(new Libraries.Telemetry.Models.AccountCreditionals()
-                    {
-                        Email = accountCreditionals.Login,
-                        Password = accountCreditionals.Password
-                    }), source.Token).GetAwaiter().GetResult();
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-
-                if (requestResult == null || requestResult.StatusCode != 200)
-                {
-                    return false;
-                }
-
-                var token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
-                    requestResult.Message);
-
-                AccountAuthorizationData authData = new AccountAuthorizationData()
-                {
-                    AccountCreditionals = accountCreditionals,
-                    AccountToken = new AccountToken()
-                    {
-                        Email = token.Email,
-                        Token = token.Token
-                    }
-                };
-
-                this.accountTokenObservable.OnNext(authData);
-
-                return true;
+            if (response?.StatusCode != 200)
+            {
+                return false;
             }
+
+            var token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
+                    response.Message);
+
+            AccountAuthorizationData authData = new AccountAuthorizationData()
+            {
+                AccountCreditionals = accountCreditionals,
+                AccountToken = new AccountToken()
+                {
+                    Email = token.Email,
+                    Token = token.Token
+                }
+            };
+
+            this.accountAuthorizationDataObservable.OnNext(authData);
+
+            return true;
         }
 
         public async Task<bool> TryRegisterAsync(AccountCreditionals accountCreditionals)
         {
-            using (CancellationTokenSource source = new CancellationTokenSource(30000))
+            var response = await this.requestSender.SendRequestAsync(new RegisterRequest(new Libraries.Telemetry.Models.AccountCreditionals()
             {
-                IRequestResult requestResult = null;
-                try
-                {
-                    requestResult = await this.requestConsumer.AddRequestAsync(new RegisterRequest(new Libraries.Telemetry.Models.AccountCreditionals()
-                    {
-                        Email = accountCreditionals.Login,
-                        Password = accountCreditionals.Password
-                    }), source.Token);
-                }
-                catch(Exception)
-                {
-                    return false;
-                }
+                Email = accountCreditionals.Login,
+                Password = accountCreditionals.Password
+            }));
 
-                if (requestResult == null || requestResult.StatusCode != 200)
-                {
-                    return false;
-                }
-
-                Libraries.Telemetry.Models.AccountToken token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
-                    requestResult.Message);
-
-                AccountAuthorizationData authData = new AccountAuthorizationData()
-                {
-                    AccountCreditionals = accountCreditionals,
-                    AccountToken = new AccountToken()
-                    {
-                        Email = token.Email,
-                        Token = token.Token
-                    }
-                };
-
-                this.accountTokenObservable.OnNext(authData);
-
-                return true;
+            if (response?.StatusCode != 200)
+            {
+                return false;
             }
+
+            var token = JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountToken>(
+                    response.Message);
+
+            AccountAuthorizationData authData = new AccountAuthorizationData()
+            {
+                AccountCreditionals = accountCreditionals,
+                AccountToken = new AccountToken()
+                {
+                    Email = token.Email,
+                    Token = token.Token
+                }
+            };
+
+            this.accountAuthorizationDataObservable.OnNext(authData);
+
+            return true;
         }
 
         #region Dispose
 
         public void Dispose()
         {
-            this.accountTokenObservable.Dispose();
+            this.accountAuthorizationDataObservable.Dispose();
             this.authorizationService.Dispose();
         }
 

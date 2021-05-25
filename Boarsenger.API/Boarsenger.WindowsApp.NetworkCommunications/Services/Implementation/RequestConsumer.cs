@@ -24,10 +24,7 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
             ISendRequest sendRequest, 
             CancellationToken requestCancelToken)
         {
-            return this.SendMessage(sendRequest);/*
-            var task = new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
-            task.Start();
-            return task;*/
+            return this.SendMessage(sendRequest);
         }
 
         private IRequestResult SendMessage(ISendRequest sendRequest)

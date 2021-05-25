@@ -21,7 +21,7 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ServerManagement()
         {
             return View();
