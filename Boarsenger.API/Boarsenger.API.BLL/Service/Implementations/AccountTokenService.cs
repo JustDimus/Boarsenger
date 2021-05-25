@@ -22,7 +22,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
             this.encryptionService = encryptionService;
         }
 
-        public async Task<IServiceResult> ClearAccountToken(AccountTokenDTO accountToken)
+        public async Task<IServiceResult> ClearAccountTokenAsync(AccountTokenDTO accountToken)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
-        public async Task<IServiceResult> ClearAllAccountToken(AccountDataDTO account)
+        public async Task<IServiceResult> ClearAllAccountTokenAsync(AccountDataDTO account)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
-        public async Task<IServiceResult<AccountTokenDTO>> GenerateAccountToken(AccountDataDTO account)
+        public async Task<IServiceResult<AccountTokenDTO>> GenerateAccountTokenAsync(AccountDataDTO account)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
-        public async Task<IServiceResult<Guid>> GetAccountIdByToken(AccountTokenDTO account)
+        public async Task<IServiceResult<Guid>> GetAccountIdByTokenAsync(AccountTokenDTO account)
         {
             try
             {

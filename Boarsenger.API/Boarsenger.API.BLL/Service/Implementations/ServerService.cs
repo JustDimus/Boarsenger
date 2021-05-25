@@ -43,7 +43,7 @@ namespace Boarsenger.API.BLL.Service.Implementations
             try
             {
                 var accountGuidResult = await this.accountTokenService
-                    .GetAccountIdByToken(createServerData.ServerInfoUpdateData.AccountToken);
+                    .GetAccountIdByTokenAsync(createServerData.ServerInfoUpdateData.AccountToken);
 
                 if (!accountGuidResult.IsSuccesful)
                 {
