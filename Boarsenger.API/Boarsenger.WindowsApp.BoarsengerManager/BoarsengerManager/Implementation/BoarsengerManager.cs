@@ -54,7 +54,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
                 Password = accountCreditionals.Password
             }));
 
-            if (response.StatusCode != 200)
+            if (response?.StatusCode != 200)
             {
                 return false;
             }
@@ -85,7 +85,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
                 Password = accountCreditionals.Password
             }));
 
-            if (response.StatusCode != 200)
+            if (response?.StatusCode != 200)
             {
                 return false;
             }

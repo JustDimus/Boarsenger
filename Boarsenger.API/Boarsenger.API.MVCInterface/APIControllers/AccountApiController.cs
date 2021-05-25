@@ -25,7 +25,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(AccountCreditionals accountCredentials)
+        public async Task<IActionResult> Register([FromBody] AccountCreditionals accountCredentials)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromForm]AccountCreditionals accountCredentials)
+        public async Task<IActionResult> Login([FromBody] AccountCreditionals accountCredentials)
         {
             if (!ModelState.IsValid)
             {

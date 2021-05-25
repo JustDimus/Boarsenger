@@ -34,6 +34,11 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
                     return null;
                 }
 
+                if (requestResult == null)
+                {
+                    return null;
+                }
+
                 ServerResult serverResult = JsonParser.ParseToObject<ServerResult>(requestResult.Message);
 
                 return new RequestResult()
