@@ -28,7 +28,22 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation
             this.boarsengerManager.AccountTokenObservable.Subscribe(OnNext);
         }
 
-        public AccountToken AccountToken { get; private set; }
+        public AccountToken AccountToken
+        {
+            get
+            {
+                this.registryManager.GetValue(RegistryConstants.SETTINGS_DIRECTORY, RegistryConstants.LOGIN, out string login);
+                this.registryManager.GetValue(RegistryConstants.SETTINGS_DIRECTORY, RegistryConstants.TOKEN, out string token);
+
+                AccountToken result = new AccountToken()
+                {
+                    Email = login,
+                    Token = token
+                };
+
+                return result;
+            }
+        }
 
         public bool IsAuthorized
         {
@@ -84,7 +99,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation
             this.registryManager.SetValue(
                 RegistryConstants.SETTINGS_DIRECTORY, 
                 RegistryConstants.TOKEN, 
-                JsonConvert.SerializeObject(accountAuthorizationData.AccountToken));
+                accountAuthorizationData.AccountToken.Token);
 
             this.registryManager.SetValue(
                 RegistryConstants.SETTINGS_DIRECTORY,
@@ -94,7 +109,7 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.Services.Implementation
             this.registryManager.SetValue(
                 RegistryConstants.SETTINGS_DIRECTORY,
                 RegistryConstants.LOGIN,
-                accountAuthorizationData.AccountCreditionals.Login);
+                accountAuthorizationData.AccountToken.Email);
 
             this.registryManager.SetValue(
                 RegistryConstants.SETTINGS_DIRECTORY,

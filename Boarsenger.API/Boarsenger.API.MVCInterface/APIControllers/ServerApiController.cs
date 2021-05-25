@@ -23,7 +23,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateServer(CreateServerData createServerData)
+        public async Task<IActionResult> CreateServer([FromBody] CreateServerData createServerData)
         {
             if (!ModelState.IsValid)
             {
@@ -76,12 +76,12 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             }    
             else
             {
-                return BadRequest(result.Message);
+                return Ok(result.Message);
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> PublishServer(ServerOwnerData serverOwnerData)
+        public async Task<IActionResult> PublishServer([FromBody] ServerOwnerData serverOwnerData)
         {
             if (!ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetMyServers(AccountToken accountToken)
+        public async Task<IActionResult> GetMyServers([FromBody] AccountToken accountToken)
         {
             var serviceResult = await this.serverService.GetMyServersAsync(
                 new PageDataDTO()

@@ -5,6 +5,7 @@ using Boarsenger.WindowsApp.UI.Navigation;
 using Boarsenger.WindowsApp.UI.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -31,7 +32,7 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
 
         public ICommand LogOutCommand { get; private set; }
 
-        public List<ServerData> ServerData { get; private set; } = new List<ServerData>();
+        public ObservableCollection<ServerData> ServerData { get; private set; } = new ObservableCollection<ServerData>();
 
         public ICommand UpdateCommand { get; private set; }
 
@@ -90,10 +91,15 @@ namespace Boarsenger.WindowsApp.UI.ViewModels.Pages
         {
             var result = this.boarsengerManager.GetServerPage().GetAwaiter().GetResult();
 
+            this.ServerData.Clear();
+
             if (result != null)
             {
-                this.ServerData = result.ServerList;
-                OnPropertyChanged(nameof(ServerData));
+                foreach (var i in result.ServerList)
+                {
+                    this.ServerData.Add(i);
+                }
+                OnPropertyChanged("ServerData");
             }
         }
     }

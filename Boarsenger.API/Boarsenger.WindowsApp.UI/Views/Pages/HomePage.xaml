@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="2" Grid.Row="0" Command="{Binding Path=LogOutCommand}">Выйти</Button>
-        <Button Grid.Column="0" Grid.Row="0" Command="{Binding Path=UpdateCommand}">Обновить</Button>
+        <Button Grid.Column="1" Grid.Row="0" Command="{Binding Path=UpdateCommand}">Обновить</Button>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock>Название</TextBlock>
             <TextBox Text="{Binding Path=ServerTitle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
@@ -30,15 +30,16 @@
             <TextBox Text="{Binding Path=ServerIP, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Button Command="{Binding Path=CreateServerCommand}">Создать сервер</Button>
         </StackPanel>
-        <ListBox DataContext="{Binding Path=ServerData}">
-            <ListBox.ItemTemplate>
+        <ListView Grid.Row="1" Grid.Column="1" DataContext="{Binding ServerData}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <WrapPanel>
+                        <TextBlock Text="Server"/>
                         <TextBlock Text="{Binding Path=Title}"/>
                         <TextBlock Text="{Binding Path=ServerIP}"/>
-                    </StackPanel>
+                    </WrapPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </local:BasePage>

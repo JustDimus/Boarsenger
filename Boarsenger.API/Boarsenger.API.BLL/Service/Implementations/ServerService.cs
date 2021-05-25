@@ -136,11 +136,6 @@ namespace Boarsenger.API.BLL.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
         {
             try

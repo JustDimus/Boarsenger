@@ -158,8 +158,15 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
                 return null;
             }
 
-            return JsonParser.ParseToObject<Libraries.Telemetry.Models.ServerInfo>(
-                response.Message);
+            try
+            {
+                return JsonParser.ParseToObject<Libraries.Telemetry.Models.ServerInfo>(
+                    response.Message);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         #region Dispose
