@@ -28,6 +28,7 @@ namespace Boarsenger.WindowsApp.SystemManager.RegistryHelper.Implementations
             if (obj == null)
             {
                 result = null;
+                return;
             }
 
             result = obj.ToString();
@@ -40,9 +41,10 @@ namespace Boarsenger.WindowsApp.SystemManager.RegistryHelper.Implementations
             if (obj == null)
             {
                 result = false;
+                return;
             }
 
-            result = obj.ToString().ToString().ToLower() == "true";
+            result = obj.ToString().ToLower() == "true";
         }
 
         public void SetValue(string hive, string cell, int result)

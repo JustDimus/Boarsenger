@@ -20,13 +20,14 @@ namespace Boarsenger.WindowsApp.NetworkCommunications.Services.Implementation
             this.baseUri = ConfigurationManager.AppSettings["api.uri"];
         }
 
-        public Task<IRequestResult> AddRequestAsync(
+        public async Task<IRequestResult> AddRequestAsync(
             ISendRequest sendRequest, 
             CancellationToken requestCancelToken)
         {
+            return this.SendMessage(sendRequest);/*
             var task = new Task<IRequestResult>(() => SendMessage(sendRequest), requestCancelToken);
             task.Start();
-            return task;
+            return task;*/
         }
 
         private IRequestResult SendMessage(ISendRequest sendRequest)

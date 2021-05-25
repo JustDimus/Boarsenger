@@ -50,7 +50,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             }
             else
             {
-                return BadRequest(serviceResult.Message);
+                return Ok(serviceResult.Message);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             }
             else
             {
-                return BadRequest(serviceResult.Message);
+                return NotFound(serviceResult.Message);
             }
         }
          
@@ -89,7 +89,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             AccountTokenDTO accountTokenDTO = new AccountTokenDTO()
@@ -106,7 +106,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
             }
             else
             {
-                return BadRequest(serviceResult.Message);
+                return NotFound(serviceResult.Message);
             }
         }
     }
