@@ -29,7 +29,10 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(accountCredentials);
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
             }
 
             AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
@@ -40,18 +43,18 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 
             var serviceResult = await this.accountService.RegisterAsync(accountDTO);
 
-            if (serviceResult.IsSuccesful)
+            ServerResult result = new ServerResult()
             {
-                return Ok(new AccountToken()
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful 
+                ? JsonParser.ParseToString(new AccountToken()
                 {
                     Email = serviceResult.Result.Email,
                     Token = serviceResult.Result.Token
-                });
-            }
-            else
-            {
-                return Ok(serviceResult.Message);
-            }
+                }) : serviceResult.Message
+            };
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -59,7 +62,10 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(accountCredentials);
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
             }
 
             AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
@@ -70,18 +76,18 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 
             var serviceResult = await this.accountService.TryLogInAsync(accountDTO);
 
-            if (serviceResult.IsSuccesful)
+            ServerResult result = new ServerResult()
             {
-                return new JsonResult(new AccountToken()
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful
+                ? JsonParser.ParseToString(new AccountToken()
                 {
                     Email = serviceResult.Result.Email,
                     Token = serviceResult.Result.Token
-                });
-            }
-            else
-            {
-                return NotFound(serviceResult.Message);
-            }
+                }) : serviceResult.Message
+            };
+
+            return Ok(result);
         }
          
         [HttpPost]
@@ -89,7 +95,10 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return NotFound();
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
             }
 
             AccountTokenDTO accountTokenDTO = new AccountTokenDTO()
@@ -100,14 +109,14 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 
             var serviceResult = await this.accountService.TryLogOutAsync(accountTokenDTO);
 
-            if (serviceResult.IsSuccesful)
+            ServerResult result = new ServerResult()
             {
-                return Ok();
-            }
-            else
-            {
-                return NotFound(serviceResult.Message);
-            }
+                StatusCode = serviceResult.IsSuccesful ? 200 : 400,
+                Result = serviceResult.IsSuccesful
+                ? string.Empty : serviceResult.Message
+            };
+
+            return Ok(result);
         }
     }
 }

@@ -26,7 +26,10 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(createServerData);
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
             }
 
             ChangeServerSettingsDTO serverChangeData = new ChangeServerSettingsDTO()
@@ -81,7 +84,10 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(serverOwnerData);
+                return Ok(new ServerResult()
+                {
+                    StatusCode = 400
+                });
             }
 
             UpdateServerPublicationStatusDTO data = new UpdateServerPublicationStatusDTO()
