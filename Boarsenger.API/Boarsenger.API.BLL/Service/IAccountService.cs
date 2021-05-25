@@ -21,5 +21,7 @@ namespace Boarsenger.API.BLL.Service
         Task<IServiceResult<AccountDataDTO>> GetAccountDataAsync(AccountTokenDTO accountToken);
 
         Task<IServiceResult> SetAccountDataAsync(AccountDataDTO accountData);
+
+        Task<IServiceResult> SetAccountDataAsync(AccountChangeDataDTO accountData);
     }
 }

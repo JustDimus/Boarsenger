@@ -161,13 +161,27 @@ namespace Boarsenger.API.BLL.Service.Implementations
             });
         }
 
-        public async Task<IServiceResult> SetAccountDataAsync(AccountDataDTO accountData)
+        public Task<IServiceResult> SetAccountDataAsync(AccountDataDTO accountData)
+        {
+            AccountChangeDataDTO accountChangeData = new AccountChangeDataDTO()
+            {
+                AccountData = accountData,
+                AccountToken = new AccountTokenDTO()
+                {
+                    Token = this.authorizationService.GetAccountToken()
+                }
+            };
+
+            return SetAccountDataAsync(accountChangeData);
+        }
+
+        public async Task<IServiceResult> SetAccountDataAsync(AccountChangeDataDTO accountData)
         {
             try
             {
                 var accountId = await this.accountTokenService.GetAccountIdByTokenAsync(new AccountTokenDTO()
                 {
-                    Token = this.authorizationService.GetAccountToken()
+                    Token = accountData.AccountToken.Token
                 });
 
                 if (accountId.IsSuccesful)
@@ -177,13 +191,13 @@ namespace Boarsenger.API.BLL.Service.Implementations
 
                 var accountDataResult = await this.accountRepository.GetAsync(a => a.Id == accountId.Result);
 
-                accountDataResult.Password = string.IsNullOrWhiteSpace(accountData.Password)
+                accountDataResult.Password = string.IsNullOrWhiteSpace(accountData.AccountData.Password)
                     ? accountDataResult.Password
-                    : this.encryptionService.Encrypt(accountData.Password);
+                    : this.encryptionService.Encrypt(accountData.AccountData.Password);
 
-                accountDataResult.SecondName = accountData.SecondName;
-                accountDataResult.Age = accountData.Age;
-                accountDataResult.FirstName = accountData.FirstName;
+                accountDataResult.SecondName = accountData.AccountData.SecondName;
+                accountDataResult.Age = accountData.AccountData.Age;
+                accountDataResult.FirstName = accountData.AccountData.FirstName;
 
                 await this.accountRepository.UpdateAsync(accountDataResult);
 
