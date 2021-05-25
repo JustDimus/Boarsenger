@@ -33,9 +33,9 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromForm]LoginViewModel loginModel)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(loginModel);
+                return this.View(loginModel);
             }
 
             AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
@@ -44,27 +44,19 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
                 Password = loginModel.Password
             };
 
-            var serviceResult = await this.accountService.TryLogInAsync(accountDTO);
+            var loginResult = await this.accountService.TryLogInAsync(accountDTO);
 
-            if (serviceResult.IsSuccesful)
+            if (!loginResult.IsSuccesful)
             {
-                RedirectToAction("ServerManagement", "Profile");
+                this.ModelState.AddModelError(String.Empty, loginResult.Message);
 
-                return Ok(new AccountTokenDTO()
-                {
-                    Email = serviceResult.Result.Email,
-                    Token = serviceResult.Result.Token
-                });
-
-                //return new JsonResult(new AccountToken()
-                //{
-                //    Email = serviceResult.Result.Email,
-                //    Token = serviceResult.Result.Token
-                //});
+                return this.View(loginModel);
             }
             else
             {
-                return NotFound(serviceResult.Message);
+                await AuthenticateAsync(loginResult.Result.Token);
+
+                return this.RedirectToAction("ServerManagement", "Profile");
             }
         }
 
@@ -79,9 +71,9 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
         [AllowAnonymous]
         public async Task<IActionResult> Registration([FromForm]RegisterViewModel registrationModel)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(registrationModel);
+                return this.View(registrationModel);
             }
 
             AccountCredentialsDTO accountDTO = new AccountCredentialsDTO()
@@ -90,21 +82,17 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
                 Password = registrationModel.Password
             };
 
-            var serviceResult = await this.accountService.RegisterAsync(accountDTO);
+            var registerResult = await this.accountService.RegisterAsync(accountDTO);
 
-            if (serviceResult.IsSuccesful)
+            if (!registerResult.IsSuccesful)
             {
-                RedirectToAction("Login", "Account");
+                this.ModelState.AddModelError(String.Empty, registerResult.Message);
 
-                return Ok(new AccountTokenDTO()
-                {
-                    Email = serviceResult.Result.Email,
-                    Token = serviceResult.Result.Token
-                });
+                return this.View(registrationModel);
             }
             else
             {
-                return Ok(serviceResult.Message);
+                return this.RedirectToAction("Login", "Account");
             }
         }
 
