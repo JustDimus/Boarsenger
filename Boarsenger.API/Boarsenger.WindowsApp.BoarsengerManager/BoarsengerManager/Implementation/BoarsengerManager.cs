@@ -108,6 +108,60 @@ namespace Boarsenger.WindowsApp.BoarsengerManager.BoarsengerManager.Implementati
             return true;
         }
 
+        public async Task<Libraries.Telemetry.Models.ServerPageData> GetServerPage()
+        {
+            var response = await this.requestSender.SendRequestAsync(new GetServersRequest());
+
+            if (response?.StatusCode != 200)
+            {
+                return null;
+            }
+
+            return JsonParser.ParseToObject<Libraries.Telemetry.Models.ServerPageData>(
+                response.Message);
+        }
+
+        public async Task<Libraries.Telemetry.Models.AccountInfo> GetAccountInfo()
+        {
+            var response = await this.requestSender.SendRequestAsync(new GetAccountDataRequest(new AccountToken()
+            {
+                Email = this.AuthorizationService.AccountToken.Email,
+                Token = this.AuthorizationService.AccountToken.Token
+            }));
+
+            if (response?.StatusCode != 200)
+            {
+                return null;
+            }
+
+            return JsonParser.ParseToObject<Libraries.Telemetry.Models.AccountInfo>(
+                response.Message);
+        }
+
+        public Task<bool> SetAccountInfo(AccountProfileData accountProfileData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Libraries.Telemetry.Models.ServerInfo> CreateServer(ServerData serverData)
+        {
+            var response = await this.requestSender.SendRequestAsync(new CreateServerRequest(
+                new ServerData()
+                {
+                    Title = serverData.Title,
+                    ServerIP = serverData.ServerIP
+                },
+                this.AuthorizationService.AccountToken));
+
+            if (response?.StatusCode != 200)
+            {
+                return null;
+            }
+
+            return JsonParser.ParseToObject<Libraries.Telemetry.Models.ServerInfo>(
+                response.Message);
+        }
+
         #region Dispose
 
         public void Dispose()
