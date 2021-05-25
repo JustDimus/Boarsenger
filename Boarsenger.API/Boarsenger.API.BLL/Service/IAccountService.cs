@@ -13,5 +13,9 @@ namespace Boarsenger.API.BLL.Service
         Task<IServiceResult> TryLogOutAsync(AccountTokenDTO accountToken);
 
         Task<IServiceResult<AccountTokenDTO>> RegisterAsync(AccountCredentialsDTO registrationModel);
+
+        Task<IServiceResult<AccountDataDTO>> GetAccountDataAsync();
+
+        Task<IServiceResult> SetAccountDataAsync(AccountDataDTO accountData);
     }
 }
