@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.MVCInterface.APIControllers
 {
+    [Area("api")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -55,7 +56,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(AccountCreditionals accountCredentials)
+        public async Task<IActionResult> Login([FromForm]AccountCreditionals accountCredentials)
         {
             if (!ModelState.IsValid)
             {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Boarsenger.API.MVCInterface.MVCControllers
 {
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         public IActionResult Index()

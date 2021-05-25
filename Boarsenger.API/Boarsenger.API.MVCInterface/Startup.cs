@@ -75,6 +75,10 @@ namespace Boarsenger.API.MVCInterface
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "api",
+                    areaName: "api",
+                    pattern: "api/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
