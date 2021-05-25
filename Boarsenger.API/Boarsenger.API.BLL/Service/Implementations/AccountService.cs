@@ -109,5 +109,15 @@ namespace Boarsenger.API.BLL.Service.Implementations
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IServiceResult<AccountDataDTO>> GetAccountDataAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IServiceResult> SetAccountDataAsync(AccountDataDTO accountData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
