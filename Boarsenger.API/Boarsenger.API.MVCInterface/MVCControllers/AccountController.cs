@@ -108,6 +108,11 @@ namespace Boarsenger.API.MVCInterface.MVCControllers
             return View();
         }
 
+        public IActionResult Show()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult ProfileEdit()
         {

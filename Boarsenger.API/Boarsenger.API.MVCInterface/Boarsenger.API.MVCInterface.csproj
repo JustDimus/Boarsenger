@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Views\Account\" />
     <Folder Include="APIControllers\" />
+    <Folder Include="Views\Server\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
