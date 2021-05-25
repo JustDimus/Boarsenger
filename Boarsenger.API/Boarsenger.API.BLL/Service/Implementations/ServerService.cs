@@ -104,7 +104,17 @@ namespace Boarsenger.API.BLL.Service.Implementations
             throw new NotImplementedException();
         }
 
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServers(PageDataDTO pageData, AccountTokenDTO accountToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerData(PageDataDTO pageData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerList(PageDataDTO pageData)
         {
             throw new NotImplementedException();
         }

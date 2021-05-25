@@ -14,11 +14,11 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountApiController : ControllerBase
     {
         private IAccountService accountService;
 
-        public AccountController(
+        public AccountApiController(
             IAccountService accountService)
         {
             this.accountService = accountService;
@@ -55,7 +55,7 @@ namespace Boarsenger.API.MVCInterface.APIControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(AccountCreditionals accountCredentials)
+        public async Task<IActionResult> Login([FromForm]AccountCreditionals accountCredentials)
         {
             if (!ModelState.IsValid)
             {

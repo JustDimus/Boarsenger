@@ -12,11 +12,11 @@ namespace Boarsenger.API.MVCInterface.APIControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ServerController : ControllerBase
+    public class ServerApiController : ControllerBase
     {
         private IServerService serverService;
 
-        public ServerController(IServerService serverService)
+        public ServerApiController(IServerService serverService)
         {
             this.serverService = serverService;
         }

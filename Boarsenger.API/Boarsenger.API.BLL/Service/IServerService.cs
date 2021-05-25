@@ -19,5 +19,9 @@ namespace Boarsenger.API.BLL.Service
         Task<IServiceResult<ServerTokenDTO>> ChangeServerToken(ServerInfoUpdate changeServerInfo);
 
         Task<IServiceResult> DeleteServer(ServerInfoUpdate deleteServerInfo);
+
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetServerList(PageDataDTO pageData);
+
+        Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServers(PageDataDTO pageData, AccountTokenDTO accountToken);
     }
 }
