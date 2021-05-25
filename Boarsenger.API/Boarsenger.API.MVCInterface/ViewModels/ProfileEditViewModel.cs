@@ -15,6 +15,8 @@ namespace Boarsenger.API.MVCInterface.ViewModels
 
         public string SecondName { get; set; }
 
+        public string  NickName { get; set; }
+
         public DateTime RegistrationDate { get; set; }
 
         public int Age { get; set; }

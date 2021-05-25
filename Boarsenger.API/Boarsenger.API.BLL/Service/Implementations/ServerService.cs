@@ -38,6 +38,11 @@ namespace Boarsenger.API.BLL.Service.Implementations
             throw new NotImplementedException();
         }
 
+        public Task<IServiceResult<ServerTokenDTO>> ChangeServerTokenAsync(ServerTokenDTO serverToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ChangeServerSettingsDTO createServerData)
         {
             try
@@ -99,12 +104,27 @@ namespace Boarsenger.API.BLL.Service.Implementations
             }
         }
 
+        public Task<IServiceResult<UpdateServerDataDTO>> CreateServerAsync(ServerDataDTO createServerData)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IServiceResult> DeleteServerAsync(ServerInfoUpdate deleteServerInfo)
         {
             throw new NotImplementedException();
         }
 
+        public Task<IServiceResult> DeleteServerAsync(ServerTokenDTO serverToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData, AccountTokenDTO accountToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IServiceResult<EntityPage<ServerDataDTO>>> GetMyServersAsync(PageDataDTO pageData)
         {
             throw new NotImplementedException();
         }
