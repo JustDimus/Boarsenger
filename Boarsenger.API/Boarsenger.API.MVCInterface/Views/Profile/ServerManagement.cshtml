@@ -1,0 +1,68 @@
+﻿@model Boarsenger.API.MVCInterface.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Server Management";
+    Layout = "~/Views/Profile/Profile.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <section>
+            
+            <div class="row pt-5">
+                <div class="col">
+                    <h2 id="main_text" class="text-left">Your Active Servers</h2>
+                </div>
+                <div class="col-2">
+                    <div id="main_text" class="form-group text-right">
+                        <button value="Add" class="btn btn-primary btn-block">+ Add</button>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <form id="account" class="justify-content-md-center pt-5" asp-action="Login">
+                <div class="row pb-2" id="rows_servers">
+                    <div class="col-6">
+                        <p id="text_for_servers">OldGaming</p>
+                    </div>
+                    <div class="col-2">
+                        <p id="text_for_servers">Users: 124</p>
+                    </div>
+                    <div class="col-2">
+                        <p id="text_for_servers">Online: 50</p>
+                    </div>
+                    <div class="col-2 text-right">
+                        <i class="fas fa-sync-alt fa-2x pr-3"></i>
+                        <i class="fas fa-times fa-2x"></i>
+                    </div>
+                </div>
+                <div class="row pt-1 pb-1">
+                    <div class="col">
+
+                    </div>
+                </div>
+                <div class="row pb-2" id="rows_servers">
+                    <div class="col-6">
+                        <p id="text_for_servers">Office Server for Fun</p>
+                    </div>
+                    <div class="col-2">
+                        <p id="text_for_servers">Users: 25</p>
+                    </div>
+                    <div class="col-2">
+                        <p id="text_for_servers">Online: 11</p>
+                    </div>
+                    <div class="col-2 text-right">
+                        <i class="fas fa-sync-alt fa-2x pr-3"></i>
+                        <i class="fas fa-times fa-2x"></i>
+                    </div>
+                </div>
+                <div class="row pt-1 pb-1">
+                    <div class="col">
+
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

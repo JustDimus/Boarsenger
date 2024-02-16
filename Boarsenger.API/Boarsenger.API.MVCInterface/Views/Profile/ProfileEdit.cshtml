@@ -1,0 +1,71 @@
+﻿@model Boarsenger.API.MVCInterface.ViewModels.ProfileEditViewModel
+
+@{
+    ViewData["Title"] = "Profile Edit";
+    Layout = "~/Views/Profile/Profile.cshtml";
+}
+
+
+
+
+
+<div class="row pt-5">
+    <div class="col-md-3 offset-1">
+        <form method="post" asp-controller="Profile" asp-action="ProfileEdit">
+            <h2 id="main_text" class="text-center">Edit</h2>
+            <div class="row ml-4 mt-3 mb-1">
+                <div class="col-md-4">
+                    <div class="text-center pt-xl-2 mr-5 ml-2">
+                        <i id="ninja_image" class="fas fa-user-ninja fa-9x "></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="main_text" class="form-group pt-3 pl-2">
+                <button value="Upload Photo" class="btn btn-primary btn-block">Upload Photo</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-6 offset-1">
+        <form asp-action="ProfileEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label asp-for="SecondName" class="control-label"></label>
+                        <input asp-for="SecondName" class="form-control" />
+                        <span asp-validation-for="SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="NickName" class="control-label"></label>
+                        <input asp-for="NickName" class="form-control" />
+                        <span asp-validation-for="NickName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="main_text" class="form-group">
+                <button value="Sign In" class="btn btn-primary btn-block">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

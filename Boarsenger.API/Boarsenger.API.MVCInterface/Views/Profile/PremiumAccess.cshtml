@@ -1,0 +1,45 @@
+﻿@model Boarsenger.API.MVCInterface.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "PremiumAccess";
+    Layout = "~/Views/Profile/Profile.cshtml";
+}
+
+<div class="row pt-5">
+    <div class="col-md-3 offset-1">
+        <form asp-action="PremiumAccess">
+            <h2 id="main_text" class="text-center">Purchase Premium easily now</h2>
+            <div id="main_text" class="form-group pt-3 pl-2">
+                <button value="Buy" class="btn btn-primary btn-block"><i class="fas fa-shopping-cart fa-1x mr-1"></i>Buy</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-6 offset-1 pb-3">
+        <form asp-action="PremiumAccess">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h2 id="add_text_home" class="text-dark">Activate Premium Account to get access to next features:</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <p id="add_text_home_zag" class="text-dark">
+                            - create and manage up to 10 servers 
+                        </p>
+                        <p id="add_text_home_zag" class="text-dark">
+                            - unlimited number of users on server
+                        </p>
+                        <p id="add_text_home_zag" class="text-dark">
+                            - connection to the main API once a three months
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
